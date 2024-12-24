@@ -1,3 +1,4 @@
+import { faL } from "@fortawesome/free-solid-svg-icons";
 import { create } from "zustand";
 
 export const useStore = create((set) => ({
@@ -6,6 +7,7 @@ export const useStore = create((set) => ({
   data: [],
   categories: [],
   selecteCategory: [],
+  mealByID: [],
 
   addIngredient: (ingredient) =>
     set((state) => ({
@@ -56,21 +58,21 @@ export const useStore = create((set) => ({
       });
     }
   },
-  fetchSelectedCategory: async (category) => {
-    set({ loading: true, error: null });
+  fetchMealDetailsByID: async (id) => {
+    set({ loadingID: true, errorID: null });
     try {
       const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
       );
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
-      set({ selectedCategory: data.meals, loading: false });
+      set({ mealByID: data.meals, loadingID: false });
     } catch (err) {
       set({
-        error: err.message || "An unknown error occurred",
-        loading: false,
+        errorID: err.message || "An unknown error occurred",
+        loadingID: false,
       });
     }
   },

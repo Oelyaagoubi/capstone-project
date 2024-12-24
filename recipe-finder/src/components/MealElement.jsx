@@ -1,4 +1,3 @@
-import meal from "../assets/meal.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 

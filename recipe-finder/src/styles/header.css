@@ -1,0 +1,58 @@
+header {
+  padding: 20px;
+}
+
+.banner {
+  position: relative;
+  height: 355px;
+  border-radius: 20px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.banner > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.bannerText {
+  position: absolute;
+  top: 82px;
+  left: 80px;
+  width: 350px;
+  height: 167px;
+}
+.bannerText > p {
+  font-weight: 24px;
+  color: #dc582a;
+}
+.bannerText > h1 {
+  font-weight: 40px;
+  color: #ffffff;
+  line-height: 127%;
+}
+.bannerText .author {
+  font-weight: 20px;
+  color: #ffffff;
+}
+.AIchef {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 86px;
+  background-color: #c4d600;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding-left: 20px;
+}
+.AIchef > img {
+  height: 52px;
+  margin-right: 5px;
+  /* border-radius: 20px; */
+}
+.AIchef > h1 {
+  font-size: 32px;
+  color: black;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+}

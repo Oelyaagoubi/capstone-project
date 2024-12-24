@@ -1,0 +1,79 @@
+.container {
+  height: 1000px;
+  background-color: #d6d62d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1500px;
+}
+.navBar {
+  height: 111px;
+  background-color: rgb(198, 214, 219);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+}
+.chefImg {
+  height: 52px;
+  margin-right: 5px;
+}
+.title {
+  font-size: 32px;
+  color: black;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+}
+* {
+  box-sizing: border-box;
+}
+.Actionsection {
+  width: auto;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  justify-content: center;
+}
+.inputfield {
+  margin-right: 12px;
+  height: 38px;
+  border-radius: 6px;
+  border: 1.5px solid gray;
+}
+.addButton {
+  color: white;
+
+  border-radius: 6px;
+  height: 38px;
+  background-color: black;
+  border: none;
+}
+.thelist {
+  height: auto;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  background-color: #fafaf8;
+
+  margin-top: 48px;
+}
+.thelist > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.thelist > ul > li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 52px;
+}
+
+.thelist > ul > li > input {
+  height: 28px;
+}

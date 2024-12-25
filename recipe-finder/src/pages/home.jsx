@@ -44,6 +44,7 @@ const Home = () => {
 
   return (
     <main>
+      <h1>alll categories</h1>
       <div className="grid">{renderMealsOrCategories()}</div>
     </main>
   );

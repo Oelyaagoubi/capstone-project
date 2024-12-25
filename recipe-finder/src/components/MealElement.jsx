@@ -6,20 +6,14 @@ const MealsGrid = (props) => {
     <div className="mealGrid">
       <div
         onClick={() => props.displayClickedCategory(props.category.strCategory)}
-        className="mealGridComponent"
+        className="meal-card-component"
       >
-        <div className="mealThumb">
+        <div className="meal-card-img">
           <img src={props.category.strCategoryThumb} alt="" />
         </div>
-        <div className="mealinfo">
-          <div>
-            <h2>Russian salad</h2>
-            <h3>{props.category.strCategory}</h3>
-          </div>
-          <div className="location">
-            <FontAwesomeIcon icon={faLocationDot} size="2x" color="#509E2F" />
-            <p>place</p>
-          </div>
+        <div onWheel={(e) => e.stopPropagation()} className="meal-card-info">
+          <h1>{props.category.strCategory}</h1>
+          <p>{props.category.strCategoryDescription}sdsd</p>
         </div>
       </div>
     </div>

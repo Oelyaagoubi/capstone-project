@@ -15,7 +15,7 @@ html {
 #root {
   font-family: Inter, sans-serif;
   height: 2000px;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
 }
 body {
   background-color: #ffffff;

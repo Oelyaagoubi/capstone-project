@@ -4,6 +4,7 @@ import "./styles/nav.css";
 import "./styles/header.css";
 import "./styles/MealsGrid.css";
 import "./styles/mealDetails.css";
+import "./styles/mealCard.css";
 import MealsGrid from "./components/MealElement";
 import Action from "./components/AIchef";
 import List from "./components/IngredientsList";

@@ -7,7 +7,6 @@ const MealElementCategory = (props) => {
 
   const fetchByID = (id) => {
     fetchMealDetailsByID(id);
-    console.log(id);
   };
 
   return (
@@ -22,7 +21,7 @@ const MealElementCategory = (props) => {
           </div>
           <div className="location">
             <FontAwesomeIcon icon={faLocationDot} size="2x" color="#509E2F" />
-            <p>place</p>
+            <p>{props.meal.strArea}</p>
           </div>
         </div>
       </div>

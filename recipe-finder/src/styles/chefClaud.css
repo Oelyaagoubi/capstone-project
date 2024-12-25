@@ -77,3 +77,25 @@
 .thelist > ul > li > input {
   height: 28px;
 }
+.AIchef {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 86px;
+  background-color: #c4d600;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.AIchef > img {
+  height: 52px;
+  margin-right: 5px;
+  /* border-radius: 20px; */
+}
+.AIchef > h1 {
+  font-size: 32px;
+  color: black;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+}

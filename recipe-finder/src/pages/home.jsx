@@ -15,10 +15,6 @@ const Home = () => {
     fetchCategories();
   }, [fetchCategories]);
 
-  const displayClickedCategory = (category) => {
-    fetchSelectedCategory(category);
-  };
-
   const renderMealsOrCategories = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -33,11 +29,7 @@ const Home = () => {
       ));
     } else {
       return categories.map((category, index) => (
-        <MealElement
-          key={index}
-          category={category}
-          displayClickedCategory={displayClickedCategory}
-        />
+        <MealElement key={index} category={category} />
       ));
     }
   };

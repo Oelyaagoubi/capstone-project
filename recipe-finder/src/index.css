@@ -15,10 +15,10 @@ html {
 #root {
   font-family: Inter, sans-serif;
   height: 2000px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fafafa;
 }
 body {
-  background-color: #ffffff;
+  background-color: #f7f7f7;
   margin: 0;
   padding: 0;
   max-width: 2000px;

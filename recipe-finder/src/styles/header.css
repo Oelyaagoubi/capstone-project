@@ -8,6 +8,22 @@ header {
   border-radius: 20px;
   margin-top: 20px;
   overflow: hidden;
+  background: linear-gradient(
+    hsla(0, 0%, 0%, 0),
+    hsl(0 0% 0% / 0.1),
+    hsl(0 0% 0% / 0.3)
+  );
+}
+.banner-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    hsla(0, 0%, 0%, 0.1),
+    hsl(0 0% 0% / 0.3),
+    hsl(0 0% 0% / 0.8)
+  );
 }
 .banner > img {
   width: 100%;
@@ -17,10 +33,8 @@ header {
 }
 .bannerText {
   position: absolute;
-  top: 82px;
+  top: 140px;
   left: 80px;
-  width: 350px;
-  height: 167px;
 }
 .bannerText > p {
   font-weight: 24px;
@@ -31,28 +45,74 @@ header {
   color: #ffffff;
   line-height: 127%;
 }
-.bannerText .author {
-  font-weight: 20px;
+.meal-location {
   color: #ffffff;
+  /* display: flex;
+  flex-direction: column;
+  align-items: start; */
 }
-.AIchef {
+.arrow-buttons {
+  width: 100%;
+  position: absolute;
   display: flex;
-  justify-content: start;
+  justify-content: center;
+  top: 83%;
+}
+.arrow-buttons #shuffle-button {
+  cursor: pointer;
+}
+
+/* Loading Placeholder styles */
+.loading-placeholder {
+  width: 100%;
+  height: 400px; /* Adjust based on your header height */
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  height: 86px;
-  background-color: #c4d600;
-  margin-top: 20px;
-  border-radius: 15px;
-  padding-left: 20px;
+  flex-direction: column;
 }
-.AIchef > img {
-  height: 52px;
-  margin-right: 5px;
-  /* border-radius: 20px; */
+
+.loading-banner {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0; /* A light grey background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-.AIchef > h1 {
-  font-size: 32px;
-  color: black;
-  font-family: Inter, sans-serif;
-  font-weight: 400;
+
+.loading-banner-screen {
+  width: 80%;
+  height: 100%;
+  background-color: #ccc; /* Placeholder background */
+  border-radius: 8px;
+}
+
+.loading-spinner {
+  position: absolute;
+  font-size: 24px;
+  color: #4a4a4a;
+  font-weight: bold;
+}
+
+.loading-spinner::after {
+  content: "...";
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% {
+    content: "Loading";
+  }
+  33% {
+    content: "Loading.";
+  }
+  66% {
+    content: "Loading..";
+  }
+  100% {
+    content: "Loading...";
+  }
 }

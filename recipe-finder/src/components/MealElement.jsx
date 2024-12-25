@@ -1,11 +1,14 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { useStore } from "../components/store";
 
 const MealsGrid = (props) => {
+  const { selectedCategory, fetchSelectedCategory } = useStore();
+  const displayClickedCategory = (category) => {
+    fetchSelectedCategory(category);
+  };
   return (
     <div className="mealGrid">
       <div
-        onClick={() => props.displayClickedCategory(props.category.strCategory)}
+        onClick={() => displayClickedCategory(props.category.strCategory)}
         className="meal-card-component"
       >
         <div className="meal-card-img">

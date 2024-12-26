@@ -5,10 +5,9 @@ import { useState, useEffect } from "react"; // Import useState and useEffect
 
 const Header = () => {
   const [meal, setMeal] = useState(null); // State to store the current meal
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
 
-  // Function to fetch the random meal
   const fetchRandomMeal = async () => {
     setLoading(true);
     setError(null);
@@ -25,26 +24,24 @@ const Header = () => {
     }
   };
 
-  // Fetch the initial random meal on component mount
   useEffect(() => {
     fetchRandomMeal();
   }, []);
 
-  // Function to shuffle and fetch a new random meal
   const NewRandomMeal = () => {
     fetchRandomMeal();
   };
 
-  // Handle loading, error, and rendering of meal data
   if (loading)
     return (
-      <header className="loading-placeholder">
-        <div className="banner loading-banner">
-          {/* Placeholder for header content */}
-          <div className="banner-screen loading-banner-screen"></div>
-          <div className="loading-spinner">Loading...</div>
+      <div className="loading-placeholder">
+        <div className="avatar-placeholder"></div>
+        <div className="text-placeholder">
+          <div className="line-placeholder"></div>
+          <div className="line-placeholder short"></div>
+          <div className="line-placeholder"></div>
         </div>
-      </header>
+      </div>
     );
   if (error) return <p>{error}</p>;
 

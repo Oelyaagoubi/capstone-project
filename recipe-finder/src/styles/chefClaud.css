@@ -1,59 +1,92 @@
-.container {
-  height: 1000px;
-  background-color: #d6d62d;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1500px;
+/* Container for the Action section */
+.ActionContainer {
+  text-align: center;
+
+  padding: 0 20px 20px 20px;
 }
-.navBar {
-  height: 111px;
-  background-color: rgb(198, 214, 219);
+
+/* The AIchef clickable div */
+.AIchef {
+  cursor: pointer;
+  background-color: #f8f8f8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px -4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
   display: flex;
+  justify-content: start;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1),
-    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  height: 86px;
+  border-radius: 15px;
+  padding-left: 20px;
+  cursor: pointer;
 }
-.chefImg {
+
+.AIchef:hover {
+  background-color: #e0e0e0;
+}
+
+/* Smoothly appearing container */
+.AIchef-container {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+}
+
+/* Visible state */
+.AIchef-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 500px;
+}
+
+/* Hidden state */
+.AIchef-container.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+}
+.AIchef > img {
   height: 52px;
   margin-right: 5px;
+  border-radius: 20px;
 }
-.title {
+.AIchef > h1 {
   font-size: 32px;
   color: black;
   font-family: Inter, sans-serif;
   font-weight: 400;
 }
-* {
-  box-sizing: border-box;
-}
-.Actionsection {
-  width: auto;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  margin-top: 50px;
-  justify-content: center;
-}
-.inputfield {
-  margin-right: 12px;
-  height: 38px;
-  border-radius: 6px;
-  border: 1.5px solid gray;
-}
-.addButton {
-  color: white;
 
-  border-radius: 6px;
-  height: 38px;
-  background-color: black;
-  border: none;
+/* Form styling */
+.Actionsection {
+  margin-top: 20px;
 }
+
+.inputfield {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.addButton {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
 .thelist {
   height: auto;
   display: flex;
-  align-items: start;
+  align-items: center;
   flex-direction: column;
   background-color: #fafaf8;
 
@@ -62,7 +95,9 @@
 .thelist > ul {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 400px;
 }
 
 .thelist > ul > li {
@@ -70,6 +105,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   height: 52px;
 }
@@ -77,25 +113,14 @@
 .thelist > ul > li > input {
   height: 28px;
 }
-.AIchef {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  height: 86px;
-  background-color: #c4d600;
-  margin-top: 20px;
-  border-radius: 15px;
-  padding-left: 20px;
-  cursor: pointer;
-}
-.AIchef > img {
-  height: 52px;
-  margin-right: 5px;
-  /* border-radius: 20px; */
-}
-.AIchef > h1 {
-  font-size: 32px;
+.LI-buttons > button {
+  padding: 10px;
+  background-color: #c5c5c5;
   color: black;
-  font-family: Inter, sans-serif;
-  font-weight: 400;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
 }
+
+/* STYLES BEFOR */

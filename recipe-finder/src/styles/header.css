@@ -6,13 +6,13 @@ header {
   position: relative;
   height: 355px;
   border-radius: 20px;
-  margin-top: 20px;
+
   overflow: hidden;
-  background: linear-gradient(
+  /* background: linear-gradient(
     hsla(0, 0%, 0%, 0),
     hsl(0 0% 0% / 0.1),
     hsl(0 0% 0% / 0.3)
-  );
+  ); */
 }
 .banner-screen {
   position: absolute;
@@ -35,6 +35,7 @@ header {
   position: absolute;
   top: 140px;
   left: 80px;
+  cursor: pointer;
 }
 .bannerText > p {
   font-weight: 24px;
@@ -62,57 +63,55 @@ header {
   cursor: pointer;
 }
 
-/* Loading Placeholder styles */
+/* LOADING PLACEHOLDER */
+
 .loading-placeholder {
-  width: 100%;
-  height: 400px; /* Adjust based on your header height */
-  background-color: #f0f0f0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+
+  background-color: #fff;
+  height: 355px;
+  border-radius: 20px;
+  margin-top: 40px;
+
+  background: linear-gradient(90deg, #ffffff 10%, #f0f0f0 30%, #e0e0e0 60%);
 }
 
-.loading-banner {
-  width: 100%;
-  height: 100%;
-  background-color: #e0e0e0; /* A light grey background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+/* .avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  animation: shimmer 1.5s infinite;
+} */
+
+.text-placeholder {
+  flex: 1;
+  margin-left: 16px;
 }
 
-.loading-banner-screen {
-  width: 80%;
-  height: 100%;
-  background-color: #ccc; /* Placeholder background */
-  border-radius: 8px;
+.line-placeholder {
+  height: 15px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  animation: shimmer 1.5s infinite;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  width: 20%;
 }
 
-.loading-spinner {
-  position: absolute;
-  font-size: 24px;
-  color: #4a4a4a;
-  font-weight: bold;
+.line-placeholder.short {
+  width: 50%;
 }
 
-.loading-spinner::after {
-  content: "...";
-  animation: loading 1s infinite;
+.line-placeholder:last-child {
+  margin-bottom: 0;
 }
 
-@keyframes loading {
+@keyframes shimmer {
   0% {
-    content: "Loading";
-  }
-  33% {
-    content: "Loading.";
-  }
-  66% {
-    content: "Loading..";
+    background-position: -200px 0;
   }
   100% {
-    content: "Loading...";
+    background-position: 200px 0;
   }
 }

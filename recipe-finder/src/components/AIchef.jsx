@@ -2,9 +2,11 @@ import { useStore } from "./store";
 import chef from "../assets/chef.png";
 import { useState } from "react";
 
+import IngrediantsList from "./IngredientsList";
+
 export default function Action() {
   const addIngredient = useStore((state) => state.addIngredient);
-  const [showAIchef, setShowAIchef] = useState(false); // State to toggle visibility
+  const [isContentVisible, setIsContentVisible] = useState(false); // State to toggle visibility
 
   // Handle form submission to add an ingredient
   function handleAddIngredient(event) {
@@ -23,23 +25,23 @@ export default function Action() {
     form.reset();
   }
 
-  // Function to toggle the display of AIchef
-  const toggleAIchef = () => {
-    setShowAIchef((prev) => !prev);
+  // Function to toggle the display of the content
+  const toggleContentVisibility = () => {
+    setIsContentVisible((prev) => !prev);
   };
 
   return (
-    <div className="AIchef" onClick={toggleAIchef}>
-      <img src={chef} alt="AI-Chef" />
-      <h1>Chef AI</h1>
-
-      {/* Conditional rendering for AIchef form */}
-      {showAIchef && (
+    <div className="ActionContainer">
+      <div className="AIchef" onClick={toggleContentVisibility}>
+        <img src={chef} alt="AI-Chef" />
+        <h1>Chef AI</h1>
+      </div>
+      <div
+        className={`AIchef-container ${
+          isContentVisible ? "visible" : "hidden"
+        }`}
+      >
         <main>
-          <nav className="navBar">
-            <img className="chefImg" src={chef} alt="Chef Claude" />
-            <h1 className="title">Chef Claude</h1>
-          </nav>
           <form
             onSubmit={handleAddIngredient}
             method="POST"
@@ -55,8 +57,9 @@ export default function Action() {
               + Add Ingredient
             </button>
           </form>
+          <IngrediantsList />
         </main>
-      )}
+      </div>
     </div>
   );
 }

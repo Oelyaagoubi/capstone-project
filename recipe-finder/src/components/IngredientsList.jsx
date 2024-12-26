@@ -1,5 +1,6 @@
 import { useStore } from "./store";
 import { useState, useRef } from "react";
+
 export default function List() {
   const ingredients = useStore((state) => state.ingredients);
 
@@ -33,7 +34,7 @@ export default function List() {
             defaultValue={Ingrediant.name} // Use defaultValue instead of onChange
             ref={editInputRef} // Reference to the input element
           />
-          <div>
+          <div className="LI-buttons">
             <button onClick={handleSaveEdit}>Save</button>
             <button onClick={() => setEditingId(null)}>Cancel</button>
           </div>
@@ -41,7 +42,7 @@ export default function List() {
       ) : (
         <>
           <p>{Ingrediant.name}</p>
-          <div>
+          <div className="LI-buttons">
             <button
               onClick={() => handleEditClick(Ingrediant.id, Ingrediant.name)}
             >

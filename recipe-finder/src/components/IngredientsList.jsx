@@ -1,4 +1,4 @@
-import { useStore } from "./store";
+import useStore from "./store";
 import { useState, useRef } from "react";
 
 export default function List() {
@@ -15,7 +15,7 @@ export default function List() {
   };
 
   const handleEditClick = (id, currentValue) => {
-    setEditingId(id); // s
+    setEditingId(id);
   };
   const handleSaveEdit = () => {
     if (editingId !== null && editInputRef.current) {

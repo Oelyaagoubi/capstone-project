@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/nav.css";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const handleSearch = (e) => {
@@ -28,12 +29,8 @@ function Navbar() {
       </form>
 
       <div className="navLinks">
-        <a href="#home" className="link">
-          Home
-        </a>
-        <a href="#about" className="link">
-          About
-        </a>
+        <Link to="/">Home</Link>
+        <Link to="About">About</Link>
         <a href="#contact" className="link">
           Contact
         </a>

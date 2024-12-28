@@ -1,14 +1,28 @@
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import { create } from "zustand";
 
-export const useStore = create((set) => ({
+const useStore = create((set) => ({
+  // States
   ingredients: [],
   searchTerm: "",
   data: [],
   categories: [],
-  selecteCategory: [],
+  selectedCategory: [],
   mealByID: [],
   RandomMeal: [],
+  userIngredients: "",
+  recipeFromAI: "",
+  loadingFromAI: false,
+  selectedView: "categories",
+
+  storeSelectedView: (view) =>
+    set((state) => ({
+      selectedView: view,
+    })),
+
+  // Actions
+  storeRecipeFromAI: (recipe) => set({ recipeFromAI: recipe }),
+  setLoadingFromAI: (isLoading) => set({ loadingFromAI: isLoading }),
+  setUserIngredients: (ingredients) => set({ userIngredients: ingredients }),
 
   addIngredient: (ingredient) =>
     set((state) => ({
@@ -17,14 +31,16 @@ export const useStore = create((set) => ({
 
   removeIngredient: (index) =>
     set((state) => ({
-      ingredients: state.ingredients.filter((_, i) => i !== index), // Removes the ingredient at the specified index
+      ingredients: state.ingredients.filter((_, i) => i !== index),
     })),
+
   editIngredient: (id, newValue) =>
     set((state) => ({
       ingredients: state.ingredients.map((item) =>
         item.id === id ? { ...item, name: newValue } : item
       ),
     })),
+
   fetchRandomMeal: async () => {
     set({ loading: true, error: null });
     try {
@@ -37,7 +53,10 @@ export const useStore = create((set) => ({
       const data = await response.json();
       set({ RandomMeal: data.meals, loading: false });
     } catch (err) {
-      set({ error: err, loading: false });
+      set({
+        error: err.message || "An unknown error occurred",
+        loading: false,
+      });
     }
   },
 
@@ -53,11 +72,15 @@ export const useStore = create((set) => ({
       const data = await response.json();
       set({ categories: data.categories, loading: false });
     } catch (err) {
-      set({ error: err, loading: false });
+      set({
+        error: err.message || "An unknown error occurred",
+        loading: false,
+      });
     }
   },
+
   fetchSelectedCategory: async (category) => {
-    set({ loading: true, error: null });
+    set({ loading: true, error: null, selectedView: "selectedCategory" });
     try {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
@@ -74,8 +97,9 @@ export const useStore = create((set) => ({
       });
     }
   },
+
   fetchMealDetailsByID: async (id) => {
-    set({ loadingID: true, errorID: null });
+    set({ loadingID: true, errorID: null, selectedView: "mealDetails" });
     try {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`

@@ -1,4 +1,4 @@
-import { useStore } from "../components/store";
+import useStore from "./store";
 
 const MealsGrid = (props) => {
   const { selectedCategory, fetchSelectedCategory } = useStore();

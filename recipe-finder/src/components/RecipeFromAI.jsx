@@ -1,0 +1,92 @@
+import React from "react";
+import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import useStore from "./store";
+// Import CSS file for styles
+
+const RecipeGenerator = () => {
+  const {
+    ingredients,
+    storeRecipeFromAI,
+    setLoadingFromAI,
+    recipeFromAI,
+    loadingFromAI,
+  } = useStore();
+
+  const stringWithCommas = ingredients.join(", ");
+
+  const generateRecipe = async () => {
+    setLoadingFromAI(true);
+    try {
+      const prompt = `
+        
+        You are an assistant that receives a list of ingredients provided by a 
+        user and suggests a recipe they could make with some or all of those 
+        ingredients. You don't need to use every ingredient they mention in your recipe. 
+        The recipe can include additional ingredients they didn't mention, but try not to include 
+        too many extra ingredients. Format your response in markdown to make it easier 
+        to render to a web page. Here are the user's ingredients : ${stringWithCommas}.
+      `;
+
+      const response = await axios.post(
+        "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",
+        {
+          inputs: prompt,
+          parameters: {
+            max_new_tokens: 600,
+            temperature: 0.5,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AI_RECIPE_GENERATOR}`,
+          },
+        }
+      );
+
+      const recipe =
+        response.data?.[0]?.generated_text || "No recipe generated.";
+
+      // Clean the recipe by removing the exact prompt text
+      console.log(recipe);
+      const cleanedRecipe = recipe
+        .replace(prompt.trim(), "") // Remove the prompt
+        .trim();
+      storeRecipeFromAI(cleanedRecipe);
+    } catch (error) {
+      console.error("Error generating recipe:", error);
+      storeRecipeFromAI("Unable to generate a recipe. Please try again later.");
+    } finally {
+      setLoadingFromAI(false);
+    }
+  };
+
+  return (
+    <div className="recipe-generator">
+      <div className="get-recipe-container">
+        <div>
+          <h3>Ready for a recipe?</h3>
+          <p>Generate a recipe from your list of ingredients.</p>
+        </div>
+        <button
+          onClick={() =>
+            ingredients.length > 4
+              ? generateRecipe()
+              : alert("please enter at least 4 ingredients")
+          }
+          className="generate-buttons"
+          disabled={loadingFromAI}
+        >
+          {loadingFromAI ? "Generating..." : "Generate Recipe"}
+        </button>
+      </div>
+      {recipeFromAI && (
+        <div className="suggested-recipe-container">
+          <ReactMarkdown>{recipeFromAI}</ReactMarkdown>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RecipeGenerator;

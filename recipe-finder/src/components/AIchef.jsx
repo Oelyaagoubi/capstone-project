@@ -1,6 +1,7 @@
-import { useStore } from "./store";
+import useStore from "./store";
 import chef from "../assets/chef.png";
 import { useState } from "react";
+import RecipeGenerator from "./RecipeFromAI";
 
 import IngrediantsList from "./IngredientsList";
 
@@ -59,6 +60,9 @@ export default function Action() {
           </form>
           <IngrediantsList />
         </main>
+        <div>
+          <RecipeGenerator />
+        </div>
       </div>
     </div>
   );

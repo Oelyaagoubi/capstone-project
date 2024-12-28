@@ -1,7 +1,38 @@
+.button-group > button {
+  padding: 10px 20px;
+  background-color: rgb(80, 158, 47);
+  color: white;
+  border: none;
+  border-radius: 2em 1em 4em / 0.5em 3em;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.button-group {
+  padding: 10px 0px;
+  margin-bottom: 10px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 10px;
+  font-family: "Poppins", serif;
+  color: #5b626e;
+  align-items: center;
+}
+.Grid-main {
   padding: 20px;
-  gap: auto;
-  justify-content: center;
+}
+
+.Grid-main > Link > h1 {
+  font-family: "Poppins", serif;
+  color: #51555e;
+  margin-top: 20px;
+}
+.Grid-main > Link {
+  text-decoration: none;
+}
+.Grid-main > Link :hover {
+  color: #84bd00;
 }

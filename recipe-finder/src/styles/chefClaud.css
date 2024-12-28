@@ -133,16 +133,6 @@
   margin-bottom: 10px;
 }
 
-.generate-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .generate-button:disabled {
   background: #ccc;
   cursor: not-allowed;

@@ -72,7 +72,7 @@ header {
   background-color: #fff;
   height: 355px;
   border-radius: 20px;
-  margin-top: 40px;
+  margin: 20px;
 
   background: linear-gradient(90deg, #ffffff 10%, #f0f0f0 30%, #e0e0e0 60%);
 }

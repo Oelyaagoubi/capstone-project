@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
   // States
+  mealBanner: [],
   ingredients: [],
   searchTerm: "",
   data: [],
@@ -12,7 +13,10 @@ const useStore = create((set) => ({
   userIngredients: "",
   recipeFromAI: "",
   loadingFromAI: false,
+  RecipeSown: false,
   selectedView: "categories",
+
+  setMealBanner: (meal) => set({ mealBanner: [meal] }),
 
   storeSelectedView: (view) =>
     set((state) => ({
@@ -22,6 +26,7 @@ const useStore = create((set) => ({
   // Actions
   storeRecipeFromAI: (recipe) => set({ recipeFromAI: recipe }),
   setLoadingFromAI: (isLoading) => set({ loadingFromAI: isLoading }),
+  setRecipeSown: () => set((state) => ({ RecipeSown: !state.RecipeSown })),
   setUserIngredients: (ingredients) => set({ userIngredients: ingredients }),
 
   addIngredient: (ingredient) =>
@@ -116,6 +121,7 @@ const useStore = create((set) => ({
       });
     }
   },
+  RundermealByID: (meal) => set({ mealByID: [meal] }),
 }));
 
 export default useStore;

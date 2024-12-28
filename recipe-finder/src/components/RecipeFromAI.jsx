@@ -11,12 +11,15 @@ const RecipeGenerator = () => {
     setLoadingFromAI,
     recipeFromAI,
     loadingFromAI,
+    RecipeSown,
+    setRecipeSown,
   } = useStore();
 
   const stringWithCommas = ingredients.join(", ");
 
   const generateRecipe = async () => {
     setLoadingFromAI(true);
+    console.log(RecipeSown);
     try {
       const prompt = `
         
@@ -48,7 +51,7 @@ const RecipeGenerator = () => {
         response.data?.[0]?.generated_text || "No recipe generated.";
 
       // Clean the recipe by removing the exact prompt text
-      console.log(recipe);
+
       const cleanedRecipe = recipe
         .replace(prompt.trim(), "") // Remove the prompt
         .trim();
@@ -69,20 +72,27 @@ const RecipeGenerator = () => {
           <p>Generate a recipe from your list of ingredients.</p>
         </div>
         <button
-          onClick={() =>
-            ingredients.length > 4
+          onClick={() => {
+            ingredients.length > 3
               ? generateRecipe()
-              : alert("please enter at least 4 ingredients")
-          }
-          className="generate-buttons"
+              : alert("please enter at least 4 ingredients");
+            setRecipeSown();
+          }}
+          className="generate-button"
           disabled={loadingFromAI}
         >
-          {loadingFromAI ? "Generating..." : "Generate Recipe"}
+          {loadingFromAI
+            ? "Generating..."
+            : RecipeSown
+            ? "Hide Recipe"
+            : "Generate Recipe"}
         </button>
       </div>
-      {recipeFromAI && (
+      {recipeFromAI && RecipeSown && (
         <div className="suggested-recipe-container">
-          <ReactMarkdown>{recipeFromAI}</ReactMarkdown>
+          <ReactMarkdown className="ReactMarkdown">
+            {recipeFromAI}
+          </ReactMarkdown>
         </div>
       )}
     </div>

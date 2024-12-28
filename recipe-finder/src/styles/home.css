@@ -10,6 +10,9 @@
 .button-group {
   padding: 10px 0px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .grid {
@@ -20,9 +23,14 @@
   font-family: "Poppins", serif;
   color: #5b626e;
   align-items: center;
+  justify-items: center;
 }
 .Grid-main {
   padding: 20px;
+}
+.Grid-main > hr {
+  background-color: #51555e;
+  margin-bottom: 10px;
 }
 
 .Grid-main > Link > h1 {

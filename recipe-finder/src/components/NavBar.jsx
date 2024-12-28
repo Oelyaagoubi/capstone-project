@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/nav.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleSearch = (e) => {
     e.preventDefault();
     const searchValue = e.target.elements.searchInput.value;
@@ -13,7 +15,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="logo">
-        <img src={logo} alt="" />
+        <img src={logo} alt="Logo" />
       </div>
 
       <form className="searchForm" onSubmit={handleSearch}>
@@ -28,12 +30,19 @@ function Navbar() {
         </button>
       </form>
 
-      <div className="navLinks">
+      <div
+        className={`hamburger ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
+
+      <div className={`navLinks ${menuOpen ? "show" : ""}`}>
         <Link to="/">Home</Link>
-        <Link to="About">About</Link>
-        <a href="#contact" className="link">
-          Contact
-        </a>
+        <Link to="/About">About</Link>
+        <Link to="/Contact">Contact</Link>
       </div>
     </nav>
   );

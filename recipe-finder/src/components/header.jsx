@@ -1,12 +1,13 @@
-import chef from "../assets/chef.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faShuffle } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react"; // Import useState and useEffect
+import { useState, useEffect } from "react";
+import useStore from "./store";
 
 const Header = () => {
-  const [meal, setMeal] = useState(null); // State to store the current meal
   const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [error, setError] = useState(null);
+  const { storeSelectedView, mealBanner, setMealBanner, RundermealByID } =
+    useStore();
 
   const fetchRandomMeal = async () => {
     setLoading(true);
@@ -16,12 +17,18 @@ const Header = () => {
         "https://www.themealdb.com/api/json/v1/1/random.php"
       );
       const data = await response.json();
-      setMeal(data.meals[0]);
+      setMealBanner(data.meals[0]);
+      RundermealByID(data.meals);
+      console.log(mealBanner);
     } catch (err) {
       setError("Error fetching meal");
     } finally {
       setLoading(false);
     }
+  };
+  const displayBannerMeal = () => {
+    storeSelectedView("mealFromBarren");
+    RundermealByID(mealBanner);
   };
 
   useEffect(() => {
@@ -45,7 +52,7 @@ const Header = () => {
     );
   if (error) return <p>{error}</p>;
 
-  if (meal) {
+  if (mealBanner) {
     return (
       <header>
         <div className="banner">
@@ -59,15 +66,15 @@ const Header = () => {
             />
           </div>
 
-          <div className="bannerText">
+          <div onClick={displayBannerMeal} className="bannerText">
             <p>Trending now</p>
-            <h1>{meal.strMeal}</h1>
+            <h1>{mealBanner[0].strMeal}</h1>
             <div className="meal-location">
               <FontAwesomeIcon icon={faLocationDot} size="2x" color="#509E2F" />
-              <p>{meal.strArea}</p>
+              <p>{mealBanner[0].strArea}</p>
             </div>
           </div>
-          <img src={meal.strMealThumb} alt={meal.strMeal} />
+          <img src={mealBanner[0].strMealThumb} alt={mealBanner[0].strMeal} />
         </div>
       </header>
     );

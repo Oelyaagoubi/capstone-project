@@ -13,7 +13,6 @@
 }
 
 /* Logo styles */
-
 .logo > img {
   width: 80px;
   height: 30px;
@@ -52,12 +51,65 @@
 
 /* Navigation links styles */
 .navLinks {
-  display: flex;
-  gap: 15px;
+  display: flex; /* Flexbox for larger screens */
+  gap: 20px;
 }
 
-.link {
+.navLinks a {
   color: black;
   text-decoration: none;
-  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover {
+  color: #0056b3;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  transition: all 0.3s;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Show hamburger menu on smaller screens */
+  }
+
+  .navLinks {
+    display: none; /* Hide links by default on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 62px;
+    right: 20px;
+    background-color: #333;
+
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .navLinks a {
+    color: white; /* Adjust link color for better contrast */
+  }
+
+  .navLinks a:hover {
+    color: #ddd; /* Lighter hover color */
+  }
+
+  .navLinks.show {
+    display: flex;
+    width: 100px;
+    border-radius: 8px;
+  }
 }

@@ -1,7 +1,9 @@
 import MealElement from "../components/MealElement";
 import MealElementCategory from "../components/MealElementCategory";
-import { Link } from "react-router-dom";
 import MealDetails from "../components/MealDetails";
+import Action from "../components/AIchef.jsx";
+import NavBar from "../components/NavBar.jsx";
+import Header from "../components/header.jsx";
 
 import { useEffect, useState } from "react";
 import useStore from "../components/store.js";
@@ -20,7 +22,6 @@ const Home = () => {
   }, [fetchCategories]);
 
   const renderSelectedComponent = () => {
-    console.log(selectedView);
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -41,28 +42,46 @@ const Home = () => {
           return <MealDetails meal={mealByID} />;
         }
         return <p>Select a meal to see details.</p>;
+      case "mealFromBarren":
+        if (mealByID && mealByID.length > 0) {
+          return <MealDetails meal={mealByID} />;
+        }
+        return <p>Select a meal to see details.</p>;
+
       default:
         return <p>Please select a view.</p>;
     }
   };
 
   return (
-    <main className="Grid-main">
-      <hr />
-      <div className="button-group">
-        <button onClick={() => storeSelectedView("categories")}>
-          {`All Categories ${">"}`}
-        </button>
-        <button onClick={() => storeSelectedView("selectedCategory")}>
-          {`All Meals By Category ${">"}`}
-        </button>
-        <button onClick={() => storeSelectedView("mealDetails")}>
-          {`Meal details ${">"}`}
-        </button>
-      </div>
+    <div>
+      <NavBar />
+      <Header />
+      <Action />
+      <main className="Grid-main">
+        <hr />
+        <div className="button-group">
+          <button onClick={() => storeSelectedView("categories")}>
+            {`All Categories ${">"}`}
+          </button>
+          <button onClick={() => storeSelectedView("selectedCategory")}>
+            {`All Meals By Category ${">"}`}
+          </button>
+          <button onClick={() => storeSelectedView("mealDetails")}>
+            {`Meal details ${">"}`}
+          </button>
+        </div>
 
-      <div className="grid">{renderSelectedComponent()}</div>
-    </main>
+        <div className="grid">{renderSelectedComponent()}</div>
+
+        <footer className="footer">
+          <p>
+            &copy; {new Date().getFullYear()} Recipe Finder. All rights
+            reserved.
+          </p>
+        </footer>
+      </main>
+    </div>
   );
 };
 

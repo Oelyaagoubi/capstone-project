@@ -1,5 +1,6 @@
 :root {
   font-family: "Poppins", serif;
+  background-color: #fafafa;
 }
 * {
   margin: 0;
@@ -12,11 +13,6 @@ html {
   justify-content: center;
 }
 
-#root {
-  font-family: Inter, sans-serif;
-  height: 2000px;
-  background-color: #fafafa;
-}
 body {
   background-color: #f7f7f7;
   margin: 0;

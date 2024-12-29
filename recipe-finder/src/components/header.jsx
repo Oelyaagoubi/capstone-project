@@ -18,8 +18,7 @@ const Header = () => {
       );
       const data = await response.json();
       setMealBanner(data.meals[0]);
-      RundermealByID(data.meals);
-      console.log(mealBanner);
+      RundermealByID(data.meals[0]);
     } catch (err) {
       setError("Error fetching meal");
     } finally {

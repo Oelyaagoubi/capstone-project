@@ -1,7 +1,7 @@
 import useStore from "./store";
 
 const MealsGrid = (props) => {
-  const { selectedCategory, fetchSelectedCategory } = useStore();
+  const { fetchSelectedCategory } = useStore();
   const displayClickedCategory = (category) => {
     fetchSelectedCategory(category);
   };

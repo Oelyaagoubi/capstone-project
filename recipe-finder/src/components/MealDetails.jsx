@@ -1,6 +1,6 @@
 const MealDetails = (props) => {
-  console.log(props.meal);
   const mealprop = props.meal[0];
+
   return (
     <div className="mealDetails">
       <h1>{mealprop.strMeal}</h1>

@@ -1,18 +1,26 @@
 import MealElement from "../components/MealElement";
-import MealElementCategory from "../components/MealElementCategory";
+import MealElementCategory from "../components/MealsByCategories.jsx";
 import MealDetails from "../components/MealDetails";
 import Action from "../components/AIchef.jsx";
 import NavBar from "../components/NavBar.jsx";
 import Header from "../components/header.jsx";
+import LoadingComponent from "../components/loadingMeals.jsx";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useStore from "../components/store.js";
 
 const Home = () => {
-  const { categories, loading, error, fetchCategories } = useStore();
-  const { selectedCategory, fetchSelectedCategory } = useStore();
-  const { mealByID, fetchMealDetailsByID } = useStore();
-  const { storeSelectedView, selectedView } = useStore();
+  const {
+    categories,
+    loading,
+    error,
+    fetchCategories,
+    mealByID,
+    mealBanner,
+    selectedCategory,
+    storeSelectedView,
+    selectedView,
+  } = useStore();
 
   // State to track the selected view
   // Default is "categories"
@@ -20,9 +28,12 @@ const Home = () => {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+  const placeholders = Array(8).fill(0);
 
   const renderSelectedComponent = () => {
-    if (loading) return <p>Loading...</p>;
+    if (loading)
+      return placeholders.map((_, index) => <LoadingComponent key={index} />);
+
     if (error) return <p>Error: {error}</p>;
 
     switch (selectedView) {
@@ -44,7 +55,7 @@ const Home = () => {
         return <p>Select a meal to see details.</p>;
       case "mealFromBarren":
         if (mealByID && mealByID.length > 0) {
-          return <MealDetails meal={mealByID} />;
+          return <MealDetails meal={mealBanner} />;
         }
         return <p>Select a meal to see details.</p>;
 

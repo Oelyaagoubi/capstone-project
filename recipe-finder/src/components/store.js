@@ -17,6 +17,7 @@ const useStore = create((set) => ({
   selectedView: "categories",
 
   setMealBanner: (meal) => set({ mealBanner: [meal] }),
+  RundermealByID: (meal) => set({ mealByID: [meal] }),
 
   storeSelectedView: (view) =>
     set((state) => ({
@@ -121,7 +122,6 @@ const useStore = create((set) => ({
       });
     }
   },
-  RundermealByID: (meal) => set({ mealByID: [meal] }),
 }));
 
 export default useStore;

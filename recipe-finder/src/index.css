@@ -1,6 +1,7 @@
 :root {
   font-family: "Poppins", serif;
   background-color: #fafafa;
+  height: 2000px;
 }
 * {
   margin: 0;

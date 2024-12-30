@@ -4,12 +4,6 @@ const MealDetails = (props) => {
   return (
     <div className="mealDetails">
       <h1>{mealprop.strMeal}</h1>
-
-      <div className="Instructions">
-        <h2>Instructions</h2>
-        <p>{mealprop.strInstructions}</p>
-      </div>
-
       <div className="ingredients">
         <div>
           <h3>Ingredients:</h3>
@@ -30,6 +24,11 @@ const MealDetails = (props) => {
           </ul>
         </div>
         <img src={mealprop.strMealThumb} alt="" />
+      </div>
+
+      <div className="Instructions">
+        <h2>Instructions</h2>
+        <p>{mealprop.strInstructions}</p>
       </div>
     </div>
   );

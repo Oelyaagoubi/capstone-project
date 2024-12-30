@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "../styles/nav.css";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faChevronUp,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import useStore from "./store";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropDowvOpen, setDropDowvOpen] = useState(false);
-  const {
-    categories,
-
-    storeSelectedView,
-
-    fetchSelectedCategory,
-  } = useStore();
+  const { categories, storeSelectedView, fetchSelectedCategory } = useStore();
+  const location = useLocation();
 
   const Allcategories = categories.map((obj) => obj.strCategory);
 
@@ -46,12 +45,21 @@ function Navbar() {
           >
             <p>
               All categories{" "}
-              <FontAwesomeIcon
-                id="shuffle"
-                icon={faChevronDown}
-                size="1x"
-                color="black"
-              />
+              {dropDowvOpen ? (
+                <FontAwesomeIcon
+                  id="Arrow"
+                  icon={faChevronUp}
+                  size="1x"
+                  color="black"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  id="Arrow"
+                  icon={faChevronDown}
+                  size="1x"
+                  color="black"
+                />
+              )}
             </p>
           </div>
           <div
@@ -80,7 +88,7 @@ function Navbar() {
           className="searchInput"
         />
         <button type="submit" className="searchButton">
-          🔍
+          <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
 
@@ -94,9 +102,28 @@ function Navbar() {
       </div>
 
       <div className={`navLinks ${menuOpen ? "show" : ""}`}>
-        <Link to="/">Home</Link>
-        <Link to="/About">About</Link>
-        <Link to="/Contact">Contact</Link>
+        <Link
+          to={"/"}
+          className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+        >
+          Home
+        </Link>
+        <Link
+          className={`nav-link ${
+            location.pathname === "/about" ? "active" : ""
+          }`}
+          to="/about"
+        >
+          About
+        </Link>
+        <Link
+          className={`nav-link ${
+            location.pathname === "/contact" ? "active" : ""
+          }`}
+          to="/contact"
+        >
+          Contact
+        </Link>
       </div>
     </nav>
   );

@@ -1,7 +1,7 @@
 import LoadingComponent from "../components/loadingMeals";
 import Navbar from "../components/NavBar";
 
-function Test() {
+function Contact() {
   return (
     <>
       <Navbar />
@@ -10,4 +10,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default Contact;

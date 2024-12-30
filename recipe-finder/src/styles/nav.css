@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 2px solid #0056b3;
+  border-bottom: 2px solid #9f4114;
 }
 
 /* Logo styles */
@@ -86,11 +86,16 @@
   height: 32px;
   border-left: none;
 }
+.searchInput:focus {
+  outline: none;
+  border: 1px solid #ccc;
+  border-left: none;
+}
 
 .searchButton {
   padding: 5px 10px;
   border: none;
-  background-color: #0056b3;
+  background-color: #9f4114;
   color: white;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
@@ -102,6 +107,10 @@
 .navLinks {
   display: flex; /* Flexbox for larger screens */
   gap: 20px;
+}
+.nav-link.active {
+  color: #0265cf; /* Highlighted color */
+  /* Glow effect */
 }
 
 .navLinks a {

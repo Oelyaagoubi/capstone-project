@@ -74,7 +74,12 @@
 }
 
 .footer {
+  display: flex;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
-  color: #555;
+  color: #ececec;
+  background-color: #858591;
+  height: 50px;
 }

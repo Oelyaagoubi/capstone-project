@@ -4,19 +4,41 @@
   padding: 0 20px 20px 20px;
 }
 
-/* The AIchef clickable div */
 .AIchef {
   cursor: pointer;
   background-color: #f8f8f8;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px -4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   display: flex;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
   height: 86px;
   border-radius: 15px;
-  padding-left: 20px;
+
   cursor: pointer;
+}
+@media (max-width: 700px) {
+  .AIchef {
+    cursor: pointer;
+    background-color: #f8f8f8;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px -4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 150px;
+    border-radius: 15px;
+
+    cursor: pointer;
+  }
+}
+.AIchef p {
+  line-height: 1.2rem;
+}
+.AI-chef-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .AIchef:hover {
@@ -45,12 +67,15 @@
   transform: translateY(-20px);
   max-height: 0;
 }
-.AIchef > img {
+.AIchef-logo {
+  display: flex;
+}
+.AIchef-logo > img {
   height: 52px;
   margin-right: 5px;
   border-radius: 20px;
 }
-.AIchef > h1 {
+.AIchef-logo > h1 {
   font-size: 32px;
   color: black;
   font-family: Inter, sans-serif;

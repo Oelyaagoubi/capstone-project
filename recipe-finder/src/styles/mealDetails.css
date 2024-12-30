@@ -40,7 +40,7 @@
   }
   .ingredients {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
     justify-content: space-between;
     padding: 20px;

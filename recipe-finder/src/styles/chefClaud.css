@@ -125,6 +125,7 @@
 .recipe-generator {
   /* padding: 20px; */
   margin: auto;
+  scroll-margin-top: 60px;
 }
 
 .input-textarea {

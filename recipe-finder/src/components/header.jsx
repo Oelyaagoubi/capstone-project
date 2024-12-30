@@ -3,7 +3,7 @@ import { faLocationDot, faShuffle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import useStore from "./store";
 
-const Header = () => {
+const Header = (props) => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null);
   const { storeSelectedView, mealBanner, setMealBanner, RundermealByID } =

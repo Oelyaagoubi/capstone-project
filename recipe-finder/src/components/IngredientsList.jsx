@@ -55,8 +55,6 @@ export default function List() {
     </li>
   ));
 
-  function hanleChange() {}
-
   return (
     <div className="thelist">
       <h1>Ingredients on hand:</h1>

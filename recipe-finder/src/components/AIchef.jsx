@@ -1,15 +1,15 @@
 import useStore from "./store";
 import chef from "../assets/chef.png";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import RecipeGenerator from "./RecipeFromAI";
 
 import IngrediantsList from "./IngredientsList";
 
-export default function Action() {
+export default function Action(props) {
   const addIngredient = useStore((state) => state.addIngredient);
+
   const [isContentVisible, setIsContentVisible] = useState(false); // State to toggle visibility
 
-  // Handle form submission to add an ingredient
   function handleAddIngredient(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -61,7 +61,7 @@ export default function Action() {
           <IngrediantsList />
         </main>
         <div>
-          <RecipeGenerator />
+          <RecipeGenerator refs={props.refs} />
         </div>
       </div>
     </div>

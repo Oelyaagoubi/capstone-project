@@ -27,7 +27,10 @@ const useStore = create((set) => ({
   // Actions
   storeRecipeFromAI: (recipe) => set({ recipeFromAI: recipe }),
   setLoadingFromAI: (isLoading) => set({ loadingFromAI: isLoading }),
-  setRecipeSown: () => set((state) => ({ RecipeSown: !state.RecipeSown })),
+  setRecipeSown: () =>
+    set((state) => ({
+      RecipeSown: !state.RecipeSown,
+    })),
   setUserIngredients: (ingredients) => set({ userIngredients: ingredients }),
 
   addIngredient: (ingredient) =>

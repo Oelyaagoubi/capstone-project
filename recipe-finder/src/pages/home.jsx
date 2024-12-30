@@ -5,8 +5,7 @@ import Action from "../components/AIchef.jsx";
 import NavBar from "../components/NavBar.jsx";
 import Header from "../components/header.jsx";
 import LoadingComponent from "../components/loadingMeals.jsx";
-
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useStore from "../components/store.js";
 
 const Home = () => {
@@ -20,10 +19,25 @@ const Home = () => {
     selectedCategory,
     storeSelectedView,
     selectedView,
+    recipeFromAI,
   } = useStore();
 
-  // State to track the selected view
-  // Default is "categories"
+  const recipeSection = useRef(null);
+  const recipeDetailsSetion = useRef(null);
+
+  useEffect(() => {
+    if (
+      selectedView === "mealFromBarren" ||
+      selectedView === "selectedCategory"
+    ) {
+      recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
+    } else return;
+  }, [selectedView, selectedCategory]);
+  useEffect(() => {
+    if (recipeFromAI && recipeSection.current !== null) {
+      recipeSection.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [recipeFromAI]);
 
   useEffect(() => {
     fetchCategories();
@@ -54,7 +68,7 @@ const Home = () => {
         }
         return <p>Select a meal to see details.</p>;
       case "mealFromBarren":
-        if (mealByID && mealByID.length > 0) {
+        if (mealBanner && mealBanner.length > 0) {
           return <MealDetails meal={mealBanner} />;
         }
         return <p>Select a meal to see details.</p>;
@@ -68,8 +82,8 @@ const Home = () => {
     <div>
       <NavBar />
       <Header />
-      <Action />
-      <main className="Grid-main">
+      <Action refs={recipeSection} />
+      <main ref={recipeDetailsSetion} className="Grid-main">
         <hr />
         <div className="button-group">
           <button onClick={() => storeSelectedView("categories")}>

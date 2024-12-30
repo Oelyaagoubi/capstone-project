@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import useStore from "./store";
 // Import CSS file for styles
 
-const RecipeGenerator = () => {
+const RecipeGenerator = (props) => {
   const {
     ingredients,
     storeRecipeFromAI,
@@ -32,7 +32,7 @@ const RecipeGenerator = () => {
       `;
 
       const response = await axios.post(
-        "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",
+        "https://api-inference.huggingface.co/models/mistralai/Mistral-Nemo-Instruct-2407",
         {
           inputs: prompt,
           parameters: {
@@ -65,7 +65,7 @@ const RecipeGenerator = () => {
   };
 
   return (
-    <div className="recipe-generator">
+    <div ref={props.refs} className="recipe-generator">
       <div className="get-recipe-container">
         <div>
           <h3>Ready for a recipe?</h3>
@@ -77,6 +77,7 @@ const RecipeGenerator = () => {
               ? generateRecipe()
               : alert("please enter at least 4 ingredients");
             setRecipeSown();
+            storeRecipeFromAI("");
           }}
           className="generate-button"
           disabled={loadingFromAI}
@@ -90,9 +91,7 @@ const RecipeGenerator = () => {
       </div>
       {recipeFromAI && RecipeSown && (
         <div className="suggested-recipe-container">
-          <ReactMarkdown className="ReactMarkdown">
-            {recipeFromAI}
-          </ReactMarkdown>
+          <div className="ReactMarkdown">{recipeFromAI}</div>
         </div>
       )}
     </div>

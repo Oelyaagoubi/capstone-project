@@ -75,6 +75,7 @@
   align-items: center;
   flex: 1;
   justify-content: center;
+  position: relative;
 }
 
 .searchInput {
@@ -86,10 +87,25 @@
   height: 32px;
   border-left: none;
 }
+
 .searchInput:focus {
   outline: none;
   border: 1px solid #ccc;
   border-left: none;
+}
+.meal-names-serach {
+  color: black;
+  position: absolute;
+  background-color: #bebebe;
+  top: 100%;
+  max-height: 150px;
+  left: 38%;
+  padding: 5px 5px;
+  max-width: 300px;
+  overflow: hidden;
+}
+.meal-names-serach > ul {
+  list-style: none;
 }
 
 .searchButton {

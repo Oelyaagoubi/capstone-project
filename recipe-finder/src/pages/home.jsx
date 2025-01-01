@@ -20,6 +20,7 @@ const Home = () => {
     storeSelectedView,
     selectedView,
     recipeFromAI,
+    selctedMealNameFromSearch,
   } = useStore();
 
   const recipeSection = useRef(null);
@@ -28,11 +29,16 @@ const Home = () => {
   useEffect(() => {
     if (
       selectedView === "mealFromBarren" ||
-      selectedView === "selectedCategory"
+      selectedView === "selectedCategory" ||
+      selectedView === "mealFromSearch" ||
+      selectedView === "mealDetails"
     ) {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
-    } else return;
-  }, [selectedView, selectedCategory]);
+      console.log(selectedView);
+    } else {
+      console.log(selectedView);
+    }
+  }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
   useEffect(() => {
     if (recipeFromAI && recipeSection.current !== null) {
       recipeSection.current.scrollIntoView({ behavior: "smooth" });
@@ -42,6 +48,7 @@ const Home = () => {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
   const placeholders = Array(8).fill(0);
 
   const renderSelectedComponent = () => {
@@ -61,15 +68,19 @@ const Home = () => {
             <MealElementCategory key={meal.idMeal} meal={meal} />
           ));
         }
-        return <p>Please Choose a category.</p>;
-      case "mealDetails":
+        return <p>Select a category to see Meals.</p>;
+      case "mealFromSearch":
         if (mealByID && mealByID.length > 0) {
           return <MealDetails meal={mealByID} />;
         }
-        return <p>Select a meal to see details.</p>;
+        return <p>Please Choose a category.</p>;
       case "mealFromBarren":
         if (mealBanner && mealBanner.length > 0) {
           return <MealDetails meal={mealBanner} />;
+        }
+      case "mealDetails":
+        if (mealByID && mealByID.length > 0) {
+          return <MealDetails meal={mealByID} />;
         }
         return <p>Select a meal to see details.</p>;
 
@@ -83,6 +94,7 @@ const Home = () => {
       <NavBar />
       <Header />
       <Action refs={recipeSection} />
+
       <main ref={recipeDetailsSetion} className="Grid-main">
         <hr />
         <div className="button-group">

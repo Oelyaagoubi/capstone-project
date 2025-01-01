@@ -13,20 +13,86 @@ import useStore from "./store";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropDowvOpen, setDropDowvOpen] = useState(false);
-  const { categories, storeSelectedView, fetchSelectedCategory } = useStore();
+  const [hasTypedFirstLetter, setHasTypedFirstLetter] = useState(false);
+  const {
+    categories,
+    storeSelectedView,
+    setmealsSearchName,
+    mealsSearchName,
+    fetchSelectedCategory,
+    fetchMealDetailsByID,
+    setsearchValue,
+    searchValue,
+    setSelctedMealNameFromSearch,
+  } = useStore();
   const location = useLocation();
 
   const Allcategories = categories.map((obj) => obj.strCategory);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const searchValue = e.target.elements.searchInput.value;
-    console.log("Search term:", searchValue); // Replace with your search logic
+  const fetchMelabyfirstLetter = async (props) => {
+    const lettersOnly = /^[A-Za-z]+$/;
+    if (lettersOnly.test(props)) {
+      const letter = props;
+
+      try {
+        const response = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        const data = await response.json();
+        if (data.meals !== null) {
+          collectMealsNames(data.meals);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
-  const scrollToSelectedCategory = () => {
-    storeSelectedView("selectedCategory");
+  const handelClickFromSearch = (val) => {
+    fetchMealDetailsByID(val);
+    setSelctedMealNameFromSearch(val);
+    storeSelectedView("mealFromSearch");
   };
+
+  const dispalyMealsNames = (array) => {
+    return array.map((obj, index) => (
+      <li
+        key={obj.Id}
+        id={obj.Id}
+        onClick={() => handelClickFromSearch(obj.Id)}
+      >
+        {obj.name}
+      </li>
+    ));
+  };
+
+  const collectMealsNames = (data) => {
+    const mealsName = data.map((obj) => ({
+      name: obj.strMeal,
+      Id: obj.idMeal,
+    }));
+    setmealsSearchName(mealsName);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const lettersOnly = /^[A-Za-z]+$/;
+    const Value = e.target.value;
+    if (lettersOnly.test(Value)) {
+      setsearchValue(Value);
+      console.log(Value);
+    }
+
+    if (Value.length === 0) {
+      setHasTypedFirstLetter(false);
+    } else if (!hasTypedFirstLetter) {
+      fetchMelabyfirstLetter(Value[0]);
+    }
+  };
+  console.log(searchValue.length);
 
   return (
     <nav className="navbar">
@@ -34,7 +100,7 @@ function Navbar() {
         <img src={logo} alt="Logo" />
       </div>
 
-      <form className="searchForm" onSubmit={handleSearch}>
+      <form className="searchForm" onChange={handleSearch}>
         <div className="dropDownMenu">
           <div
             className="drop-down-button"
@@ -80,6 +146,9 @@ function Navbar() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="meal-names-serach">
+          <ul>{mealsSearchName && dispalyMealsNames(mealsSearchName)} </ul>
         </div>
         <input
           type="text"

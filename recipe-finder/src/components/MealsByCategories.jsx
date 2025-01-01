@@ -8,6 +8,7 @@ const MealElementCategory = (props) => {
 
   const fetchByID = (id) => {
     fetchMealDetailsByID(id);
+    storeSelectedView("mealDetails");
   };
 
   return (

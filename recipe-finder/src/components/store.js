@@ -15,10 +15,20 @@ const useStore = create((set) => ({
   loadingFromAI: false,
   RecipeSown: false,
   selectedView: "categories",
+  mealsSearchName: [],
+  selctedMealNameFromSearch: "",
+
+  searchValue: "",
+
+  setSelctedMealNameFromSearch: (title) =>
+    set({ selctedMealNameFromSearch: title }),
+
+  setsearchValue: (word) => set({ searchValue: word }),
+
+  setmealsSearchName: (data) => set({ mealsSearchName: data }),
 
   setMealBanner: (meal) => set({ mealBanner: [meal] }),
   RundermealByID: (meal) => set({ mealByID: [meal] }),
-
   storeSelectedView: (view) =>
     set((state) => ({
       selectedView: view,
@@ -108,7 +118,7 @@ const useStore = create((set) => ({
   },
 
   fetchMealDetailsByID: async (id) => {
-    set({ loadingID: true, errorID: null, selectedView: "mealDetails" });
+    set({ loadingID: true, errorID: null });
     try {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`

@@ -1,0 +1,27 @@
+:root {
+  font-family: "Poppins", serif;
+  background-color: #fafafa;
+
+  overflow-y: auto;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  max-width: 2000px;
+  width: 1500px;
+  height: 100vh;
+  padding: 10px;
+  line-height: 1.6;
+}

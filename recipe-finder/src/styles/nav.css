@@ -1,0 +1,189 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fcfcfc;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #9f4114;
+}
+
+/* Logo styles */
+.logo > img {
+  width: 80px;
+  height: 30px;
+  padding-top: 3px;
+  margin: 0;
+}
+.dropDownMenu {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  padding: 5px 0px 5px 10px;
+  height: 32px;
+  font-size: 0.8rem;
+  border-right: none;
+}
+.drop-down-button {
+  cursor: pointer;
+}
+.dropDownMenu-ul {
+  position: absolute;
+  background-color: white;
+  top: 160%;
+  max-height: 0px;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.dropDownMenu-ulopen {
+  position: absolute;
+  background-color: white;
+  top: 160%;
+  border-radius: 5px;
+  list-style: none;
+  max-height: 150px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  transition: max-height 0.3s;
+}
+.dropDownMenu-ulopen ul > li {
+  cursor: pointer;
+  padding: 2px 10px;
+}
+.dropDownMenu-ul ul > li {
+  cursor: pointer;
+  padding: 2px 10px;
+}
+
+/* Search form styles */
+.searchForm {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.searchInput {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 0px 0 0 0px;
+  width: 40%;
+  max-width: 400px;
+  height: 32px;
+  border-left: none;
+}
+
+.searchInput:focus {
+  outline: none;
+  border: 1px solid #ccc;
+  border-left: none;
+}
+.meal-names-serach {
+  color: black;
+  position: absolute;
+  background-color: #bebebe;
+  top: 100%;
+  max-height: 150px;
+  left: 38%;
+  padding: 5px 5px;
+  max-width: 300px;
+  overflow: hidden;
+}
+.meal-names-serach > ul {
+  list-style: none;
+}
+
+.searchButton {
+  padding: 5px 10px;
+  border: none;
+  background-color: #9f4114;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 32px;
+}
+
+/* Navigation links styles */
+.navLinks {
+  display: flex; /* Flexbox for larger screens */
+  gap: 20px;
+}
+.nav-link.active {
+  color: #0265cf; /* Highlighted color */
+  /* Glow effect */
+}
+
+.navLinks a {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover {
+  color: #0056b3;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  transition: all 0.3s;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Show hamburger menu on smaller screens */
+  }
+
+  .navLinks {
+    display: none; /* Hide links by default on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 62px;
+    right: 20px;
+    background-color: #333;
+
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .navLinks a {
+    color: white; /* Adjust link color for better contrast */
+  }
+
+  .navLinks a:hover {
+    color: #ddd; /* Lighter hover color */
+  }
+
+  .navLinks.show {
+    display: flex;
+    width: 100px;
+    border-radius: 8px;
+  }
+}

@@ -17,8 +17,8 @@ function Navbar() {
   const {
     categories,
     storeSelectedView,
-    setmealsSearchName,
-    mealsSearchName,
+    setmealsSearchNames,
+    mealsSearchNames,
     fetchSelectedCategory,
     fetchMealDetailsByID,
     setsearchValue,
@@ -29,7 +29,13 @@ function Navbar() {
 
   const Allcategories = categories.map((obj) => obj.strCategory);
 
-  const fetchMelabyfirstLetter = async (props) => {
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      fetchMealbyfirstLetter(searchValue[0]);
+    }
+  }, [searchValue]);
+
+  const fetchMealbyfirstLetter = async (props) => {
     const lettersOnly = /^[A-Za-z]+$/;
     if (lettersOnly.test(props)) {
       const letter = props;
@@ -57,6 +63,16 @@ function Navbar() {
     storeSelectedView("mealFromSearch");
   };
 
+  function FilterBasedOnSearchValue(array) {
+    const arrayofnames = array.map((obj) => obj.name);
+    console.log(searchValue);
+    const filtered = array.filter((word) =>
+      word.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setmealsSearchNames(filtered);
+    console.log(filtered);
+  }
+
   const dispalyMealsNames = (array) => {
     return array.map((obj, index) => (
       <li
@@ -74,25 +90,19 @@ function Navbar() {
       name: obj.strMeal,
       Id: obj.idMeal,
     }));
-    setmealsSearchName(mealsName);
+
+    FilterBasedOnSearchValue(mealsName);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const lettersOnly = /^[A-Za-z]+$/;
-    const Value = e.target.value;
+
+    const lettersOnly = /^[A-Za-z]+( [A-Za-z]+)*$/;
+    const Value = e.target.value.trimStart();
     if (lettersOnly.test(Value)) {
       setsearchValue(Value);
-      console.log(Value);
-    }
-
-    if (Value.length === 0) {
-      setHasTypedFirstLetter(false);
-    } else if (!hasTypedFirstLetter) {
-      fetchMelabyfirstLetter(Value[0]);
     }
   };
-  console.log(searchValue.length);
 
   return (
     <nav className="navbar">
@@ -148,7 +158,7 @@ function Navbar() {
           </div>
         </div>
         <div className="meal-names-serach">
-          <ul>{mealsSearchName && dispalyMealsNames(mealsSearchName)} </ul>
+          <ul>{mealsSearchNames && dispalyMealsNames(mealsSearchNames)} </ul>
         </div>
         <input
           type="text"

@@ -15,7 +15,7 @@ const useStore = create((set) => ({
   loadingFromAI: false,
   RecipeSown: false,
   selectedView: "categories",
-  mealsSearchName: [],
+  mealsSearchNames: [],
   selctedMealNameFromSearch: "",
 
   searchValue: "",
@@ -25,7 +25,7 @@ const useStore = create((set) => ({
 
   setsearchValue: (word) => set({ searchValue: word }),
 
-  setmealsSearchName: (data) => set({ mealsSearchName: data }),
+  setmealsSearchNames: (data) => set({ mealsSearchNames: data }),
 
   setMealBanner: (meal) => set({ mealBanner: [meal] }),
   RundermealByID: (meal) => set({ mealByID: [meal] }),

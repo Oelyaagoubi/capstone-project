@@ -11,6 +11,8 @@ import {
 import useStore from "./store";
 
 function Navbar() {
+  const dropdownRef = useRef(null);
+  const dropdownSearchRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropDowvOpen, setDropDowvOpen] = useState(false);
   const [invalidSearchMessage, setInvalidSearchMessage] = useState("");
@@ -58,7 +60,6 @@ function Navbar() {
   };
 
   const handelClickFromSearch = (id, name) => {
-    console.log("Selected Meal Name:", name);
     fetchMealDetailsByID(id);
     setSelectedMealNameFromSearch(name); // Display clicked name in input
     setsearchValue(""); // Clear search filtering
@@ -66,19 +67,11 @@ function Navbar() {
     setmealsSearchNames([]);
   };
 
-  useEffect(() => {
-    console.log(
-      "Selected Meal Name from Search state:",
-      selectedMealNameFromSearch
-    );
-  }, [selectedMealNameFromSearch]);
-
   function FilterBasedOnSearchValue(array) {
     const filtered = array.filter((word) =>
       word.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setmealsSearchNames(filtered);
-    console.log(filtered);
   }
 
   const dispalyMealsNames = (array) => {
@@ -123,8 +116,6 @@ function Navbar() {
   }, [mealsSearchNames, searchValue]);
 
   const handelInvalidSearch = () => {
-    // const Value = e.target.value;
-
     if (mealsSearchNames.length === 0) {
       setInvalidSearchMessage(`"${searchValue}" was not found`);
     } else if (mealsSearchNames.length !== 0) {
@@ -137,11 +128,15 @@ function Navbar() {
     e.preventDefault();
   };
 
-  const dropdownRef = useRef(null);
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropDowvOpen(false);
+    }
+    if (
+      dropdownSearchRef.current &&
+      !dropdownSearchRef.current.contains(event.target)
+    ) {
+      setsearchValue("");
     }
   };
 
@@ -150,7 +145,7 @@ function Navbar() {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  });
+  }, [dropdownRef]);
 
   return (
     <nav className="navbar">
@@ -163,7 +158,6 @@ function Navbar() {
           <div
             className="drop-down-button"
             onClick={() => {
-              // console.log(categories.map((obj) => obj.strCategory));
               setDropDowvOpen((prev) => !prev);
             }}
           >
@@ -204,7 +198,7 @@ function Navbar() {
             </ul>
           </div>
         </div>
-        <div className="searchInput">
+        <div ref={dropdownSearchRef} className="searchInput">
           <input
             type="text"
             name="searchInput"

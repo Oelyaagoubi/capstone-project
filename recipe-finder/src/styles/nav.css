@@ -24,7 +24,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   position: relative;
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px;
@@ -43,7 +42,7 @@
   max-height: 0px;
   border-radius: 5px;
   overflow: hidden;
-  transition: max-height 0.5s;
+  transition: max-height 0.2s;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -54,11 +53,9 @@
   border-radius: 5px;
   list-style: none;
   max-height: 150px;
-
   overflow-x: hidden;
   overflow-y: auto;
-
-  transition: max-height 0.3s;
+  transition: max-height 0.2s;
 }
 .dropDownMenu-ulopen ul > li {
   cursor: pointer;

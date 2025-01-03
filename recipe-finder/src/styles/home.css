@@ -27,6 +27,7 @@
 }
 .Grid-main {
   padding: 20px;
+  scroll-margin-top: 30px;
 }
 .Grid-main > hr {
   background-color: #51555e;

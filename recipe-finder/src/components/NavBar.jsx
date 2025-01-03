@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/nav.css";
 import logo from "../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
@@ -13,7 +13,10 @@ import useStore from "./store";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropDowvOpen, setDropDowvOpen] = useState(false);
-  const [hasTypedFirstLetter, setHasTypedFirstLetter] = useState(false);
+  const [invalidSearchMessage, setInvalidSearchMessage] = useState("");
+  const [selectedMealNameFromSearch, setSelectedMealNameFromSearch] =
+    useState("");
+  const [searchValue, setsearchValue] = useState("");
   const {
     categories,
     storeSelectedView,
@@ -21,9 +24,6 @@ function Navbar() {
     mealsSearchNames,
     fetchSelectedCategory,
     fetchMealDetailsByID,
-    setsearchValue,
-    searchValue,
-    setSelctedMealNameFromSearch,
   } = useStore();
   const location = useLocation();
 
@@ -57,15 +57,23 @@ function Navbar() {
     }
   };
 
-  const handelClickFromSearch = (val) => {
-    fetchMealDetailsByID(val);
-    setSelctedMealNameFromSearch(val);
+  const handelClickFromSearch = (id, name) => {
+    console.log("Selected Meal Name:", name);
+    fetchMealDetailsByID(id);
+    setSelectedMealNameFromSearch(name); // Display clicked name in input
+    setsearchValue(""); // Clear search filtering
     storeSelectedView("mealFromSearch");
+    setmealsSearchNames([]);
   };
 
+  useEffect(() => {
+    console.log(
+      "Selected Meal Name from Search state:",
+      selectedMealNameFromSearch
+    );
+  }, [selectedMealNameFromSearch]);
+
   function FilterBasedOnSearchValue(array) {
-    const arrayofnames = array.map((obj) => obj.name);
-    console.log(searchValue);
     const filtered = array.filter((word) =>
       word.name.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -78,7 +86,7 @@ function Navbar() {
       <li
         key={obj.Id}
         id={obj.Id}
-        onClick={() => handelClickFromSearch(obj.Id)}
+        onClick={() => handelClickFromSearch(obj.Id, obj.name)}
       >
         {obj.name}
       </li>
@@ -97,12 +105,52 @@ function Navbar() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    const lettersOnly = /^[A-Za-z]+( [A-Za-z]+)*$/;
+    const lettersOnly = /^[A-Za-z\s]*$/;
     const Value = e.target.value.trimStart();
+    if (selectedMealNameFromSearch) {
+      setSelectedMealNameFromSearch(null);
+    }
+
     if (lettersOnly.test(Value)) {
       setsearchValue(Value);
+    } else if (Value === "") {
+      setsearchValue("");
     }
   };
+
+  useEffect(() => {
+    handelInvalidSearch();
+  }, [mealsSearchNames, searchValue]);
+
+  const handelInvalidSearch = () => {
+    // const Value = e.target.value;
+
+    if (mealsSearchNames.length === 0) {
+      setInvalidSearchMessage(`"${searchValue}" was not found`);
+    } else if (mealsSearchNames.length !== 0) {
+      setInvalidSearchMessage(`"${"please choose a meal from bellow"}"`);
+    } else if (searchValue === "") {
+      setInvalidSearchMessage("");
+    }
+  };
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropDowvOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  });
 
   return (
     <nav className="navbar">
@@ -110,8 +158,8 @@ function Navbar() {
         <img src={logo} alt="Logo" />
       </div>
 
-      <form className="searchForm" onChange={handleSearch}>
-        <div className="dropDownMenu">
+      <form className="searchForm" onSubmit={handleSearchSubmit}>
+        <div ref={dropdownRef} className="dropDownMenu">
           <div
             className="drop-down-button"
             onClick={() => {
@@ -146,7 +194,6 @@ function Navbar() {
                 <li
                   onClick={() => {
                     fetchSelectedCategory(category);
-                    setDropDowvOpen((prev) => !prev);
                     storeSelectedView("selectedCategory");
                   }}
                   key={index}
@@ -157,15 +204,26 @@ function Navbar() {
             </ul>
           </div>
         </div>
-        <div className="meal-names-serach">
-          <ul>{mealsSearchNames && dispalyMealsNames(mealsSearchNames)} </ul>
+        <div className="searchInput">
+          <input
+            type="text"
+            name="searchInput"
+            placeholder="Search meals by name..."
+            className="searchInput-input"
+            onChange={handleSearch}
+            value={
+              selectedMealNameFromSearch
+                ? selectedMealNameFromSearch
+                : searchValue
+            }
+          />
+          {searchValue !== "" && (
+            <div className="meal-names-serach">
+              <p>{invalidSearchMessage}</p>
+              <ul>{dispalyMealsNames(mealsSearchNames)} </ul>
+            </div>
+          )}
         </div>
-        <input
-          type="text"
-          name="searchInput"
-          placeholder="Search..."
-          className="searchInput"
-        />
         <button type="submit" className="searchButton">
           <FontAwesomeIcon icon={faSearch} />
         </button>

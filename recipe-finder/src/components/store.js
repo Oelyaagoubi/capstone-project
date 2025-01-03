@@ -16,12 +16,8 @@ const useStore = create((set) => ({
   RecipeSown: false,
   selectedView: "categories",
   mealsSearchNames: [],
-  selctedMealNameFromSearch: "",
 
   searchValue: "",
-
-  setSelctedMealNameFromSearch: (title) =>
-    set({ selctedMealNameFromSearch: title }),
 
   setsearchValue: (word) => set({ searchValue: word }),
 

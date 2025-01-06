@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
   faChevronUp,
-  faL,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import useStore from "./store";

@@ -59,3 +59,18 @@
   display: flex;
   flex-direction: column;
 }
+.youtube-video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: black;
+  width: 100%;
+}
+.ifram-section {
+  width: 100%;
+  padding: 20px;
+}
+.ifram-section > h2 {
+  padding-bottom: 15px;
+}

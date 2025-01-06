@@ -18,7 +18,6 @@ const Header = (props) => {
       );
       const data = await response.json();
       setMealBanner(data.meals[0]);
-      RundermealByID(data.meals[0]);
     } catch (err) {
       setError("Error fetching meal");
     } finally {
@@ -33,10 +32,6 @@ const Header = (props) => {
   useEffect(() => {
     fetchRandomMeal();
   }, []);
-
-  const NewRandomMeal = () => {
-    fetchRandomMeal();
-  };
 
   if (loading)
     return (
@@ -56,7 +51,7 @@ const Header = (props) => {
       <header>
         <div className="banner">
           <div className="banner-screen"></div>
-          <div onClick={() => NewRandomMeal()} className="arrow-buttons">
+          <div onClick={() => fetchRandomMeal()} className="arrow-buttons">
             <FontAwesomeIcon
               id="shuffle-button"
               icon={faShuffle}

@@ -13,16 +13,19 @@
 }
 
 /* Logo styles */
-.logo > img {
+.logo {
   width: 80px;
   height: 30px;
   padding-top: 3px;
   margin: 0;
+  cursor: pointer;
 }
 .dropDownMenu {
   color: black;
+  background-color: #f3f3f3;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   position: relative;
   border: 1px solid #ccc;
@@ -30,10 +33,13 @@
   padding: 5px 0px 5px 10px;
   height: 32px;
   font-size: 0.8rem;
+
   border-right: none;
 }
 .drop-down-button {
   cursor: pointer;
+  color: #253d4e;
+  font-family: inherit;
 }
 .dropDownMenu-ul {
   position: absolute;
@@ -80,13 +86,16 @@
   border-radius: 0px 0 0 0px;
   width: 40%;
   max-width: 400px;
+
   height: 32px;
   border-left: none;
   position: relative;
   padding-left: 10px;
+  background-color: #f3f3f3;
 }
 
 .searchInput-input {
+  background-color: #f3f3f3;
   border: none;
   width: 100%;
   height: 100%;
@@ -163,7 +172,7 @@ input:focus {
 .searchButton {
   padding: 5px 10px;
   border: none;
-  background-color: #9f4114;
+  background-color: #509e2f;
   color: white;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
@@ -177,7 +186,7 @@ input:focus {
   gap: 20px;
 }
 .nav-link.active {
-  color: #0265cf; /* Highlighted color */
+  color: #509e2f; /* Highlighted color */
   /* Glow effect */
 }
 
@@ -237,5 +246,28 @@ input:focus {
     display: flex;
     width: 100px;
     border-radius: 8px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .searchForm {
+    display: flex;
+    align-items: start;
+    flex: 1;
+    justify-content: center;
+    position: relative;
+  }
+
+  .searchInput {
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    width: 60%;
+    max-width: 400px;
+
+    height: 32px;
+
+    position: relative;
+    padding-left: 10px;
+    background-color: #f3f3f3;
   }
 }

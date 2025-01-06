@@ -17,6 +17,7 @@ const Home = () => {
     mealByID,
     mealBanner,
     selectedCategory,
+    selectedCategoryValue,
     storeSelectedView,
     selectedView,
     recipeFromAI,
@@ -34,9 +35,7 @@ const Home = () => {
       selectedView === "mealDetails"
     ) {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
-      console.log(selectedView);
     } else {
-      console.log(selectedView);
     }
   }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
   useEffect(() => {
@@ -98,13 +97,36 @@ const Home = () => {
       <main ref={recipeDetailsSetion} className="Grid-main">
         <hr />
         <div className="button-group">
-          <button onClick={() => storeSelectedView("categories")}>
+          <button
+            className={`all-categoris-b${
+              selectedView === "categories" ? "-active" : ""
+            }`}
+            onClick={() => storeSelectedView("categories")}
+          >
             {`All Categories ${">"}`}
           </button>
-          <button onClick={() => storeSelectedView("selectedCategory")}>
-            {`All Meals By Category ${">"}`}
+
+          <button
+            className={`all-categoris-b${
+              selectedView === "selectedCategory" ? "-active" : ""
+            }`}
+            onClick={() => storeSelectedView("selectedCategory")}
+          >
+            {`All ${
+              selectedCategoryValue ? selectedCategoryValue : "category"
+            } Meals  ${">"}`}
           </button>
-          <button onClick={() => storeSelectedView("mealDetails")}>
+
+          <button
+            className={`all-categoris-b${
+              selectedView === "mealDetails" ||
+              selectedView === "mealFromSearch" ||
+              selectedView === "mealFromBarren"
+                ? "-active"
+                : ""
+            }`}
+            onClick={() => storeSelectedView("mealDetails")}
+          >
             {`Meal details ${">"}`}
           </button>
         </div>

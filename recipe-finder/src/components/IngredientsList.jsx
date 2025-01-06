@@ -33,6 +33,7 @@ export default function List() {
             type="text"
             defaultValue={Ingrediant.name} // Use defaultValue instead of onChange
             ref={editInputRef} // Reference to the input element
+            maxLength={25}
           />
           <div className="LI-buttons">
             <button onClick={handleSaveEdit}>Save</button>

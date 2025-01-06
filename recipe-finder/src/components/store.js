@@ -16,6 +16,7 @@ const useStore = create((set) => ({
   RecipeSown: false,
   selectedView: "categories",
   mealsSearchNames: [],
+  selectedCategoryValue: "",
 
   searchValue: "",
 
@@ -95,7 +96,12 @@ const useStore = create((set) => ({
   },
 
   fetchSelectedCategory: async (category) => {
-    set({ loading: true, error: null, selectedView: "selectedCategory" });
+    set({
+      loading: true,
+      error: null,
+      selectedView: "selectedCategory",
+      selectedCategoryValue: category,
+    });
     try {
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`

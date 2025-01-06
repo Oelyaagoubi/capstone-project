@@ -82,6 +82,7 @@ export default function Action(props) {
               type="text"
               name="ingredient"
               placeholder="e.g. tomato"
+              maxLength={25}
             />
             <button type="submit" className="addButton">
               + Add Ingredient

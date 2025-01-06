@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
   faChevronUp,
+  faL,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import useStore from "./store";
@@ -16,6 +17,9 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropDowvOpen, setDropDowvOpen] = useState(false);
   const [invalidSearchMessage, setInvalidSearchMessage] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(true);
+  const [hidebutton, setHidebutton] = useState(false);
+
   const [selectedMealNameFromSearch, setSelectedMealNameFromSearch] =
     useState("");
   const [searchValue, setsearchValue] = useState("");
@@ -147,78 +151,120 @@ function Navbar() {
     };
   }, [dropdownRef]);
 
+  useEffect(() => {
+    toggleOnScreenWidth();
+    window.addEventListener("resize", toggleOnScreenWidth);
+    return () => window.removeEventListener("resize", toggleOnScreenWidth);
+  }, []);
+
+  const toggleOnScreenWidth = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 550) {
+      setShowSearchInput(false);
+      setHidebutton(true);
+    } else if (screenWidth > 550) {
+      setShowSearchInput(true);
+      setHidebutton(true);
+    }
+  };
+
+  const toggleOnClick = () => {
+    if (!showSearchInput && window.innerWidth < 550) {
+      setShowSearchInput((prev) => !prev);
+      setHidebutton((prev) => !prev);
+    } else if (showSearchInput && window.innerWidth < 550) {
+      setShowSearchInput((prev) => !prev);
+      setHidebutton((prev) => !prev);
+    }
+  };
+
   return (
     <nav className="navbar">
-      <div className="logo">
-        <img src={logo} alt="Logo" />
+      <div>
+        <Link to={"/"}>
+          {" "}
+          <img className="logo" src={logo} alt="Logo" />
+        </Link>
       </div>
 
       <form className="searchForm" onSubmit={handleSearchSubmit}>
-        <div ref={dropdownRef} className="dropDownMenu">
-          <div
-            className="drop-down-button"
-            onClick={() => {
-              setDropDowvOpen((prev) => !prev);
-            }}
-          >
-            <p>
-              All categories{" "}
-              {dropDowvOpen ? (
-                <FontAwesomeIcon
-                  id="Arrow"
-                  icon={faChevronUp}
-                  size="1x"
-                  color="black"
-                />
-              ) : (
-                <FontAwesomeIcon
-                  id="Arrow"
-                  icon={faChevronDown}
-                  size="1x"
-                  color="black"
-                />
-              )}
-            </p>
-          </div>
-          <div
-            className={dropDowvOpen ? "dropDownMenu-ulopen" : "dropDownMenu-ul"}
-          >
-            <ul>
-              {Allcategories.map((category, index) => (
-                <li
-                  onClick={() => {
-                    fetchSelectedCategory(category);
-                    storeSelectedView("selectedCategory");
-                  }}
-                  key={index}
-                >
-                  {category}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div ref={dropdownSearchRef} className="searchInput">
-          <input
-            type="text"
-            name="searchInput"
-            placeholder="Search meals by name..."
-            className="searchInput-input"
-            onChange={handleSearch}
-            value={
-              selectedMealNameFromSearch
-                ? selectedMealNameFromSearch
-                : searchValue
-            }
-          />
-          {searchValue !== "" && (
-            <div className="meal-names-serach">
-              <p>{invalidSearchMessage}</p>
-              <ul>{dispalyMealsNames(mealsSearchNames)} </ul>
+        {hidebutton && (
+          <div ref={dropdownRef} className="dropDownMenu">
+            <div
+              className="drop-down-button"
+              onClick={() => {
+                setDropDowvOpen((prev) => !prev);
+              }}
+            >
+              <p>
+                All categories{" "}
+                {dropDowvOpen ? (
+                  <FontAwesomeIcon
+                    id="Arrow"
+                    icon={faChevronUp}
+                    size="1x"
+                    color="black"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    id="Arrow"
+                    icon={faChevronDown}
+                    size="1x"
+                    color="black"
+                  />
+                )}
+                {"  "}|
+              </p>
             </div>
-          )}
-        </div>
-        <button type="submit" className="searchButton">
+            <div
+              className={
+                dropDowvOpen ? "dropDownMenu-ulopen" : "dropDownMenu-ul"
+              }
+            >
+              <ul>
+                {Allcategories.map((category, index) => (
+                  <li
+                    onClick={() => {
+                      fetchSelectedCategory(category);
+                      storeSelectedView("selectedCategory");
+                    }}
+                    key={index}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {showSearchInput && (
+          <div ref={dropdownSearchRef} className="searchInput">
+            <input
+              type="text"
+              name="searchInput"
+              placeholder="Search meals by name..."
+              className="searchInput-input"
+              onChange={handleSearch}
+              value={
+                selectedMealNameFromSearch
+                  ? selectedMealNameFromSearch
+                  : searchValue
+              }
+            />
+            {searchValue !== "" && (
+              <div className="meal-names-serach">
+                <p>{invalidSearchMessage}</p>
+                <ul>{dispalyMealsNames(mealsSearchNames)} </ul>
+              </div>
+            )}
+          </div>
+        )}
+        <button
+          onClick={() => toggleOnClick()}
+          type="submit"
+          className="searchButton"
+        >
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>

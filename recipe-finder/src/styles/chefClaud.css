@@ -32,6 +32,24 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 450px) {
+  .thelist > h1 {
+    font-size: 25px;
+  }
+
+  .Actionsection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .Actionsection > input {
+    padding: 10px;
+    margin-right: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
 .AIchef p {
   line-height: 1.2rem;
 }
@@ -114,6 +132,7 @@
   align-items: center;
   flex-direction: column;
   background-color: #fafaf8;
+  border-radius: 10px;
 
   margin-top: 48px;
 }
@@ -122,7 +141,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 400px;
+  max-width: 350px;
+  padding: 10px;
 }
 
 .thelist > ul > li {
@@ -130,13 +150,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-
+  min-width: 300px;
   height: 52px;
 }
 
 .thelist > ul > li > input {
   height: 28px;
+  max-width: 150px;
 }
 .LI-buttons > button {
   padding: 10px;
@@ -145,7 +165,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 8px;
+  margin-left: 8px;
 }
 .recipe-generator {
   /* padding: 20px; */

@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import useStore from "../components/store.js";
 
 const Home = () => {
-  const [isFullContentVisible, setIsFullContentVisible] = useState(false); // Track content visibility
+  const [isFullContentVisible, setIsFullContentVisible] = useState(true); // Track content visibility
   const screenHeight = document.body.scrollHeight;
   console.log(screenHeight);
 
@@ -155,15 +155,15 @@ const Home = () => {
         <div className="grid">{renderSelectedComponent()}</div>
       </main>
       <div className="home-footer">
-        {screenHeight > 2100 && (
+        {screenHeight > 1000 && (
           <div className="footer-button">
             <button onClick={toggleContentVisibility}>
               {isFullContentVisible ? "Show Less" : "Load More"}
             </button>
           </div>
         )}
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

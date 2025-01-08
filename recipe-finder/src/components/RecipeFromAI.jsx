@@ -42,7 +42,7 @@ const RecipeGenerator = (props) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_AI_RECIPE_GENERATOR}`,
+            Authorization: `Bearer ${import.meta.env.REACT_APP_API_KEY}`,
           },
         }
       );

@@ -11,7 +11,7 @@
 
 .about-header h1 {
   font-size: 2.5rem;
-  color: #0056b3;
+  color: #509e2f;
 }
 
 .about-header p {
@@ -65,21 +65,10 @@
 
 .feature h3 {
   font-size: 1.2rem;
-  color: #0056b3;
+  color: #509e2f;
 }
 
 .feature p {
   font-size: 0.9rem;
   color: #555;
-}
-
-.footer {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  color: #ececec;
-  background-color: #858591;
-  height: 50px;
 }

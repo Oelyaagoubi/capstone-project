@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/NavBar";
 import "../styles/About.css";
+import Footer from "../components/Footer";
 function About() {
   return (
     <div className="about-page">
@@ -85,11 +86,7 @@ function About() {
         </div>
       </section>
 
-      <footer className="footer">
-        <p>
-          &copy; {new Date().getFullYear()} Recipe Finder. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

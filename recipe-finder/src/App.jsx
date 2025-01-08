@@ -1,21 +1,22 @@
 import "./App.css";
 import "./styles/home.css";
 import "./styles/nav.css";
-import "./styles/header.css";
-import "./styles/MealsGrid.css";
-import "./styles/mealDetails.css";
+import "./styles/AIchef.css";
+import "./styles/banner.css";
+import "./styles/footer.css";
+import "./styles/LoadingMeals.css";
 import "./styles/mealCard.css";
-import "./styles/chefClaud.css";
-import "./styles/loadingMeals.css";
-import Action from "./components/AIchef";
-import NavBar from "./components/NavBar";
-import Header from "./components/header";
+import "./styles/recipeCategories.css";
+import "./styles/recipeDetails.css";
+import "./styles/footer.css";
+import "./styles/contact.css";
+
 import Home from "./pages/home";
-import About from "./pages/About"; // Import About page component
-import Contact from "./pages/Contact"; // Import Contact page component
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// Define the router with the paths for the app
+// Defining the router with the paths
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/about", element: <About /> },

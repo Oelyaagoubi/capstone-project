@@ -1,12 +1,12 @@
 import useStore from "./store";
 import chef from "../assets/chef.png";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import RecipeGenerator from "./RecipeFromAI";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import IngrediantsList from "./IngredientsList";
+import IngrediantsList from "./IngredientsListAI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Action(props) {
+export default function ChefAI(props) {
   const addIngredient = useStore((state) => state.addIngredient);
 
   const [isContentVisible, setIsContentVisible] = useState(false); // State to toggle visibility

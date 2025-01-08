@@ -57,25 +57,6 @@ const useStore = create((set) => ({
       ),
     })),
 
-  fetchRandomMeal: async () => {
-    set({ loading: true, error: null });
-    try {
-      const response = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/random.php"
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-      const data = await response.json();
-      set({ RandomMeal: data.meals, loading: false });
-    } catch (err) {
-      set({
-        error: err.message || "An unknown error occurred",
-        loading: false,
-      });
-    }
-  },
-
   fetchCategories: async () => {
     set({ loading: true, error: null });
     try {

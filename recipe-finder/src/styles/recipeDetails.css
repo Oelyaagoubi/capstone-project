@@ -1,0 +1,76 @@
+.mealDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #253d4e;
+  margin-top: -20px;
+}
+.mealDetails > h1 {
+  margin: 20px 0px 15px 0px;
+  color: #dc582a;
+}
+.Instructions > p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.Instructions > h2 {
+  font-size: 2rem;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px;
+}
+.ingredients > img {
+  max-width: 400px;
+  border-radius: 10px;
+}
+@media (max-width: 768px) {
+  .mealDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #253d4e;
+    margin-top: -20px;
+  }
+  .ingredients {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+  }
+  .ingredients > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    border-radius: 10px;
+  }
+}
+
+.Instructions {
+  display: flex;
+  flex-direction: column;
+}
+.youtube-video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: black;
+  width: 100%;
+}
+.ifram-section {
+  width: 100%;
+  padding: 20px;
+}
+.ifram-section > h2 {
+  padding-bottom: 15px;
+}

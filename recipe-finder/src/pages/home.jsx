@@ -1,14 +1,21 @@
-import MealElement from "../components/MealElement";
-import MealElementCategory from "../components/MealsByCategories.jsx";
-import MealDetails from "../components/MealDetails";
-import Action from "../components/AIchef.jsx";
+import RecipeCategories from "../components/RecipeCategories.jsx";
+import RecipeByCategory from "../components/Recipes.jsx";
+import RecipeDetails from "../components/RecipeDetails.jsx";
+import ChefAI from "../components/AIchef.jsx";
 import NavBar from "../components/NavBar.jsx";
-import Header from "../components/header.jsx";
+import Banner from "../components/banner.jsx";
+import Footer from "../components/Footer.jsx";
 import LoadingComponent from "../components/loadingMeals.jsx";
-import { useEffect, useRef } from "react";
+import ErrorBoundary from "../components/Errorbounderies.jsx";
+
+import { useEffect, useRef, useState } from "react";
 import useStore from "../components/store.js";
 
 const Home = () => {
+  const [isFullContentVisible, setIsFullContentVisible] = useState(false); // Track content visibility
+  const screenHeight = document.body.scrollHeight;
+  console.log(screenHeight);
+
   const {
     categories,
     loading,
@@ -32,12 +39,13 @@ const Home = () => {
       selectedView === "mealFromBarren" ||
       selectedView === "selectedCategory" ||
       selectedView === "mealFromSearch" ||
-      selectedView === "mealDetails"
+      selectedView === "RecipeDetails"
     ) {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
     } else {
     }
   }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
+
   useEffect(() => {
     if (recipeFromAI && recipeSection.current !== null) {
       recipeSection.current.scrollIntoView({ behavior: "smooth" });
@@ -59,27 +67,27 @@ const Home = () => {
     switch (selectedView) {
       case "categories":
         return categories.map((category, index) => (
-          <MealElement key={index} category={category} />
+          <RecipeCategories key={index} category={category} />
         ));
       case "selectedCategory":
         if (selectedCategory && selectedCategory.length > 0) {
           return selectedCategory.map((meal) => (
-            <MealElementCategory key={meal.idMeal} meal={meal} />
+            <RecipeByCategory key={meal.idMeal} meal={meal} />
           ));
         }
         return <p>Select a category to see Meals.</p>;
       case "mealFromSearch":
         if (mealByID && mealByID.length > 0) {
-          return <MealDetails meal={mealByID} />;
+          return <RecipeDetails meal={mealByID} />;
         }
         return <p>Please Choose a category.</p>;
       case "mealFromBarren":
         if (mealBanner && mealBanner.length > 0) {
-          return <MealDetails meal={mealBanner} />;
+          return <RecipeDetails meal={mealBanner} />;
         }
       case "mealDetails":
         if (mealByID && mealByID.length > 0) {
-          return <MealDetails meal={mealByID} />;
+          return <RecipeDetails meal={mealByID} />;
         }
         return <p>Select a meal to see details.</p>;
 
@@ -88,13 +96,26 @@ const Home = () => {
     }
   };
 
-  return (
-    <div>
-      <NavBar />
-      <Header />
-      <Action refs={recipeSection} />
+  const toggleContentVisibility = () => {
+    setIsFullContentVisible((prev) => !prev); // Toggle visibility of the full content
+  };
 
-      <main ref={recipeDetailsSetion} className="Grid-main">
+  return (
+    <div className="main-div">
+      <NavBar />
+      <ErrorBoundary>
+        <Banner />
+      </ErrorBoundary>
+      <ChefAI refs={recipeSection} />
+
+      <main
+        ref={recipeDetailsSetion}
+        className="Grid-main"
+        style={{
+          height: isFullContentVisible ? "auto" : "1925px", // Set fixed height or auto depending on visibility
+          overflow: isFullContentVisible ? "auto" : "hidden", // Hide overflow content initially
+        }}
+      >
         <hr />
         <div className="button-group">
           <button
@@ -132,14 +153,17 @@ const Home = () => {
         </div>
 
         <div className="grid">{renderSelectedComponent()}</div>
-
-        <footer className="footer">
-          <p>
-            &copy; {new Date().getFullYear()} Recipe Finder. All rights
-            reserved.
-          </p>
-        </footer>
       </main>
+      <div className="home-footer">
+        {screenHeight > 2100 && (
+          <div className="footer-button">
+            <button onClick={toggleContentVisibility}>
+              {isFullContentVisible ? "Show Less" : "Load More"}
+            </button>
+          </div>
+        )}
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -14,7 +14,6 @@ import useStore from "../components/store.js";
 const Home = () => {
   const [isFullContentVisible, setIsFullContentVisible] = useState(true); // Track content visibility
   const screenHeight = document.body.scrollHeight;
-  console.log(screenHeight);
 
   const {
     categories,

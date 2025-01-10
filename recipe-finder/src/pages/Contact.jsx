@@ -39,7 +39,7 @@ function Contact() {
 
   return (
     <>
-      <Navbar />
+      <Navbar pageOnDisplay="hide" />
       <div className="contact-form-container">
         <h1>Contact us</h1>
         <form className="contact-form" onSubmit={handleSubmit}>

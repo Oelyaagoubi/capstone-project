@@ -41,7 +41,12 @@ const Home = () => {
       selectedView === "RecipeDetails"
     ) {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
-    } else {
+    } else if (
+      selectedView === "mealFromBarren" ||
+      selectedView === "mealFromSearch" ||
+      selectedView === "RecipeDetails"
+    ) {
+      setIsFullContentVisible(false);
     }
   }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
 
@@ -79,7 +84,7 @@ const Home = () => {
         if (mealByID && mealByID.length > 0) {
           return <RecipeDetails meal={mealByID} />;
         }
-        return <p>Please Choose a category.</p>;
+        return <p>Recipe was not found Please Choose a category.</p>;
       case "mealFromBarren":
         if (mealBanner && mealBanner.length > 0) {
           return <RecipeDetails meal={mealBanner} />;
@@ -111,8 +116,8 @@ const Home = () => {
         ref={recipeDetailsSetion}
         className="Grid-main"
         style={{
-          height: isFullContentVisible ? "auto" : "1925px", // Set fixed height or auto depending on visibility
-          overflow: isFullContentVisible ? "auto" : "hidden", // Hide overflow content initially
+          height: isFullContentVisible ? "1925px" : "auto", // Set fixed height or auto depending on visibility
+          overflow: isFullContentVisible ? "hidden" : "auto", // Hide overflow content initially
         }}
       >
         <hr />
@@ -154,10 +159,11 @@ const Home = () => {
         <div className="grid">{renderSelectedComponent()}</div>
       </main>
       <div className="home-footer">
-        {screenHeight > 1000 && (
+        {(selectedView === "selectedCategory" ||
+          selectedView === "categories") && (
           <div className="footer-button">
             <button onClick={toggleContentVisibility}>
-              {isFullContentVisible ? "Show Less" : "Load More"}
+              {isFullContentVisible ? "Load More" : "Show Less"}
             </button>
           </div>
         )}

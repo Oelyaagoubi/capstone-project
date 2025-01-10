@@ -3,7 +3,7 @@ import chef from "../assets/chef.png";
 import { useState } from "react";
 import RecipeGenerator from "./RecipeFromAI";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import IngrediantsList from "./IngredientsListAI";
+import List from "./IngredientsListAI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ChefAI(props) {
@@ -82,13 +82,13 @@ export default function ChefAI(props) {
               type="text"
               name="ingredient"
               placeholder="e.g. tomato"
-              maxLength={25}
+              maxLength={15}
             />
             <button type="submit" className="addButton">
               + Add Ingredient
             </button>
           </form>
-          <IngrediantsList />
+          <List />
         </main>
         <div>
           <RecipeGenerator refs={props.refs} />

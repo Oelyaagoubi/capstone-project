@@ -9,23 +9,35 @@ const RecipeGenerator = (props) => {
     ingredients,
     storeRecipeFromAI,
     setLoadingFromAI,
+    setUserIngredients,
     recipeFromAI,
     loadingFromAI,
   } = useStore();
 
-  const [RecipeShown, setRecipeShown] = useState(false);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("RecipeFromAI"));
+    const storedIngredient = JSON.parse(
+      localStorage.getItem("storedIngredient")
+    );
+    {
+      storedIngredient && setUserIngredients(storedIngredient);
+    }
+
+    {
+      data && storeRecipeFromAI(data);
+    }
+  }, []);
 
   async function getRecipe() {
     setLoadingFromAI(true);
     const recipeMarkdown = await getRecipeFromMistral(ingredients);
     storeRecipeFromAI(recipeMarkdown);
+    localStorage.setItem("RecipeFromAI", JSON.stringify(recipeMarkdown));
+    localStorage.setItem("storedIngredient", JSON.stringify(ingredients));
+    console.log("run");
+
     setLoadingFromAI(false);
   }
-
-  useEffect(() => {
-    storeRecipeFromAI("");
-    setRecipeShown((prev) => !prev);
-  }, [ingredients]);
 
   const handleGenerateClick = () => {
     if (ingredients.length < 4) {
@@ -33,11 +45,13 @@ const RecipeGenerator = (props) => {
       return;
     }
 
-    if (!RecipeShown) {
+    if (!recipeFromAI) {
       getRecipe();
+    } else if (recipeFromAI) {
+      storeRecipeFromAI(null);
+      localStorage.removeItem("RecipeFromAI");
+      localStorage.removeItem("storedIngredient");
     }
-
-    setRecipeShown((prev) => !prev);
   };
 
   return (
@@ -54,12 +68,12 @@ const RecipeGenerator = (props) => {
         >
           {loadingFromAI
             ? "Generating..."
-            : RecipeShown && recipeFromAI
+            : recipeFromAI
             ? "Hide Recipe"
             : "Generate Recipe"}
         </button>
       </div>
-      {recipeFromAI && RecipeShown && (
+      {recipeFromAI && (
         <div className="suggested-recipe-container">
           <ReactMarkdown>{recipeFromAI}</ReactMarkdown>
         </div>

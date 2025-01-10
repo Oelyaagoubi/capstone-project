@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 function About() {
   return (
     <>
-      <Navbar />
+      <Navbar pageOnDisplay="hide" />
       <div className="about-page">
         <header className="about-header">
           <h1>About Recipe Finder</h1>

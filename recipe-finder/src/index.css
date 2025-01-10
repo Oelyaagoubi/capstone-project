@@ -2,7 +2,6 @@ html {
   display: flex;
 
   justify-content: center;
-  overflow-y: auto;
 }
 :root {
   font-family: "Poppins", serif;
@@ -16,8 +15,10 @@ html {
 
 body {
   background-color: #f5f7f5;
-  max-width: 1500px;
+  max-width: 1200px;
   width: 1500px;
   /* padding: 10px; */
+  height: 100vh;
+  overflow-y: auto;
   line-height: 1.6;
 }

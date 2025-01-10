@@ -14,26 +14,30 @@ export default function List() {
     removeIngredient(index);
   };
 
-  const handleEditClick = (id, currentValue) => {
+  const handleEditClick = (id) => {
     setEditingId(id);
   };
+
   const handleSaveEdit = () => {
     if (editingId !== null && editInputRef.current) {
-      const newValue = editInputRef.current.value;
-      newValue && editIngredient(editingId, newValue.trim());
-      setEditingId(null);
+      const newValue = editInputRef.current.value.trim();
+      if (newValue) {
+        editIngredient(editingId, newValue);
+        setEditingId(null);
+      }
     }
   };
 
-  const IngrediantsList = ingredients.map((Ingrediant, index) => (
-    <li key={Date.now() + Math.random()}>
-      {editingId === Ingrediant.id ? (
+  const IngredientsList = ingredients.map((Ingredient, index) => (
+    <li key={Ingredient.id}>
+      {editingId === Ingredient.id ? (
         <>
           <input
+            id={`edit-${Ingredient.id}`}
             type="text"
-            defaultValue={Ingrediant.name} // Use defaultValue instead of onChange
-            ref={editInputRef} // Reference to the input element
-            maxLength={25}
+            defaultValue={Ingredient.name}
+            ref={editInputRef}
+            maxLength={16}
           />
           <div className="LI-buttons">
             <button onClick={handleSaveEdit}>Save</button>
@@ -42,13 +46,9 @@ export default function List() {
         </>
       ) : (
         <>
-          <p>{Ingrediant.name}</p>
+          <p>{Ingredient.name}</p>
           <div className="LI-buttons">
-            <button
-              onClick={() => handleEditClick(Ingrediant.id, Ingrediant.name)}
-            >
-              Edit
-            </button>
+            <button onClick={() => handleEditClick(Ingredient.id)}>Edit</button>
             <button onClick={() => handleRemovIngredient(index)}>Remove</button>
           </div>
         </>
@@ -59,7 +59,7 @@ export default function List() {
   return (
     <div className="thelist">
       <h1>Ingredients on hand:</h1>
-      <ul>{IngrediantsList}</ul>
+      <ul>{IngredientsList}</ul>
     </div>
   );
 }

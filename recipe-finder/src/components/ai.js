@@ -9,11 +9,13 @@ const SYSTEM_PROMPT = `
         too many extra ingredients. Format your response in markdown to make it easier 
         to render to a web page. 
       `;
-const VITE_AI_RECIPE_GENERATOR = "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";
+
 const hf = new HfInference(import.meta.env.VITE_AI_RECIPE_GENERATOR);
 
-export default async function getRecipeFromMistral(ingredientsArr) {
-  const ingredientsString = ingredientsArr.join(", ");
+export default async function getRecipeFromMistral(ingredientsObj) {
+  const ingredientsArray = ingredientsObj.map((item) => item.name);
+  const ingredientsString = ingredientsArray.join(",");
+
   try {
     const response = await hf.chatCompletion({
       model: "mistralai/Mistral-Nemo-Instruct-2407",
@@ -26,6 +28,7 @@ export default async function getRecipeFromMistral(ingredientsArr) {
       ],
       max_tokens: 1024,
     });
+    console.log("run ai.stir");
     return response.choices[0].message.content;
   } catch (err) {
     console.error(err.message);

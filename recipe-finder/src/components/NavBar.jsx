@@ -10,25 +10,28 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useStore from "./store";
 
-function Navbar() {
+function Navbar(props) {
   const dropdownRef = useRef(null);
   const dropdownSearchRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropDowvOpen, setDropDowvOpen] = useState(false);
+  const [dropDownOpen, setDropDownOpen] = useState(false);
   const [invalidSearchMessage, setInvalidSearchMessage] = useState("");
   const [showSearchInput, setShowSearchInput] = useState(true);
   const [hidebutton, setHidebutton] = useState(false);
 
   const [selectedMealNameFromSearch, setSelectedMealNameFromSearch] =
     useState("");
-  const [searchValue, setsearchValue] = useState("");
+
   const {
     categories,
+    searchValue,
+    setsearchValue,
     storeSelectedView,
     setmealsSearchNames,
     mealsSearchNames,
     fetchSelectedCategory,
     fetchMealDetailsByID,
+    fetchMealDetailsByName,
   } = useStore();
   const location = useLocation();
 
@@ -120,20 +123,25 @@ function Navbar() {
 
   const handelInvalidSearch = () => {
     if (mealsSearchNames.length === 0) {
-      setInvalidSearchMessage(`"${searchValue}" was not found`);
+      setInvalidSearchMessage(`"Click Enter to search"`);
     } else if (mealsSearchNames.length !== 0) {
       setInvalidSearchMessage(`"${"please choose a meal from bellow"}"`);
     } else if (searchValue === "") {
       setInvalidSearchMessage("");
     }
   };
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    fetchMealDetailsByName(searchValue);
+    storeSelectedView("mealFromSearch");
   };
+
+  // handel Click outside the search form
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropDowvOpen(false);
+      setDropDownOpen(false);
     }
     if (
       dropdownSearchRef.current &&
@@ -149,6 +157,8 @@ function Navbar() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [dropdownRef]);
+
+  // toggle between search input and the dropdown menu on smal screens
 
   useEffect(() => {
     toggleOnScreenWidth();
@@ -186,18 +196,23 @@ function Navbar() {
         </Link>
       </div>
 
-      <form className="searchForm" onSubmit={handleSearchSubmit}>
+      <form
+        ref={dropdownSearchRef}
+        className="searchForm"
+        onSubmit={handleSearchSubmit}
+        style={props.pageOnDisplay === "hide" ? { display: "none" } : undefined}
+      >
         {hidebutton && (
           <div ref={dropdownRef} className="dropDownMenu">
             <div
               className="drop-down-button"
               onClick={() => {
-                setDropDowvOpen((prev) => !prev);
+                setDropDownOpen((prev) => !prev);
               }}
             >
               <p>
                 All categories{" "}
-                {dropDowvOpen ? (
+                {dropDownOpen ? (
                   <FontAwesomeIcon
                     id="Arrow"
                     icon={faChevronUp}
@@ -217,7 +232,7 @@ function Navbar() {
             </div>
             <div
               className={
-                dropDowvOpen ? "dropDownMenu-ulopen" : "dropDownMenu-ul"
+                dropDownOpen ? "dropDownMenu-ulopen" : "dropDownMenu-ul"
               }
             >
               <ul>
@@ -238,7 +253,7 @@ function Navbar() {
         )}
 
         {showSearchInput && (
-          <div ref={dropdownSearchRef} className="searchInput">
+          <div className="searchInput">
             <input
               type="text"
               name="searchInput"
@@ -260,7 +275,9 @@ function Navbar() {
           </div>
         )}
         <button
-          onClick={() => toggleOnClick()}
+          onClick={() => {
+            toggleOnClick();
+          }}
           type="submit"
           className="searchButton"
         >

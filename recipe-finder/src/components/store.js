@@ -35,7 +35,7 @@ const useStore = create((set) => ({
   storeRecipeFromAI: (recipe) => set({ recipeFromAI: recipe }),
   setLoadingFromAI: (isLoading) => set({ loadingFromAI: isLoading }),
 
-  setUserIngredients: (ingredients) => set({ userIngredients: ingredients }),
+  setUserIngredients: (ingredients) => set({ ingredients: ingredients }),
 
   addIngredient: (ingredient) =>
     set((state) => ({
@@ -112,6 +112,25 @@ const useStore = create((set) => ({
       set({
         errorID: err.message || "An unknown error occurred",
         loadingID: false,
+      });
+    }
+  },
+  fetchMealDetailsByName: async (searchValue) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`
+      );
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      set({ mealByID: data.meals, loading: false });
+    } catch (err) {
+      set({
+        error: err.message || "An unknown error occurred",
+        loading: false,
       });
     }
   },

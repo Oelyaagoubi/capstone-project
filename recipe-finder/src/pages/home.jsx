@@ -34,12 +34,7 @@ const Home = () => {
   const recipeDetailsSetion = useRef(null);
 
   useEffect(() => {
-    if (
-      selectedView === "mealFromBarren" ||
-      selectedView === "selectedCategory" ||
-      selectedView === "mealFromSearch" ||
-      selectedView === "RecipeDetails"
-    ) {
+    if (selectedView !== "categories") {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
     } else if (
       selectedView === "mealFromBarren" ||

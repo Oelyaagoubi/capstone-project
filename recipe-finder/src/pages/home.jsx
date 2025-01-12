@@ -36,14 +36,8 @@ const Home = () => {
   useEffect(() => {
     if (selectedView !== "categories") {
       recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
-    } else if (
-      selectedView === "mealFromBarren" ||
-      selectedView === "mealFromSearch" ||
-      selectedView === "RecipeDetails"
-    ) {
-      setIsFullContentVisible(true);
     }
-  }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
+  }, [selctedMealNameFromSearch, selectedView]);
 
   useEffect(() => {
     if (recipeFromAI && recipeSection.current !== null) {
@@ -95,8 +89,8 @@ const Home = () => {
     }
   };
 
-  const toggleContentVisibility = () => {
-    setIsFullContentVisible((prev) => !prev); // Toggle visibility of the full content
+  const scrollToTop = () => {
+    recipeDetailsSetion.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -107,14 +101,7 @@ const Home = () => {
       </ErrorBoundary>
       <ChefAI refs={recipeSection} />
 
-      <main
-        ref={recipeDetailsSetion}
-        className="Grid-main"
-        style={{
-          height: isFullContentVisible ? "auto" : "1925px", // Set fixed height or auto depending on visibility
-          overflow: isFullContentVisible ? "auto" : "hidden", // Hide overflow content initially
-        }}
-      >
+      <main ref={recipeDetailsSetion} className="Grid-main">
         <hr />
         <div className="button-group">
           <button
@@ -157,9 +144,7 @@ const Home = () => {
         {(selectedView === "selectedCategory" ||
           selectedView === "categories") && (
           <div className="footer-button">
-            <button onClick={toggleContentVisibility}>
-              {isFullContentVisible ? "Show Less" : "Load More"}
-            </button>
+            <button onClick={scrollToTop}>Back to top</button>
           </div>
         )}
       </div>

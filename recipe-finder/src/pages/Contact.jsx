@@ -44,7 +44,9 @@ function Contact() {
         <h1>Contact us</h1>
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="input-div">
-            <label htmlFor="Name">Name</label>
+            <label htmlFor="Name">
+              Name <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               name="Name"
               value={name}
@@ -53,7 +55,9 @@ function Contact() {
             {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
           </div>
           <div className="input-div">
-            <label>lastname</label>
+            <label>
+              lastname<span style={{ color: "red" }}>*</span>
+            </label>
             <input
               name="lastname"
               type="text"
@@ -65,7 +69,9 @@ function Contact() {
             )}
           </div>
           <div className="input-div">
-            <label>Email</label>
+            <label>
+              Email<span style={{ color: "red" }}>*</span>
+            </label>
             <input
               name="email"
               type="email"

@@ -167,6 +167,7 @@ function Navbar(props) {
   }, []);
   const screenWidth = window.innerWidth;
   const toggleOnScreenWidth = () => {
+    const screenWidth = window.innerWidth;
     if (screenWidth < 550) {
       setShowSearchInput(false);
       setHidebutton(true);

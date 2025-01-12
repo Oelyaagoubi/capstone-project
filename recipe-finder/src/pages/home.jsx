@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import useStore from "../components/store.js";
 
 const Home = () => {
-  const [isFullContentVisible, setIsFullContentVisible] = useState(true); // Track content visibility
+  const [isFullContentVisible, setIsFullContentVisible] = useState(false); // Track content visibility
   const screenHeight = document.body.scrollHeight;
 
   const {
@@ -46,7 +46,7 @@ const Home = () => {
       selectedView === "mealFromSearch" ||
       selectedView === "RecipeDetails"
     ) {
-      setIsFullContentVisible(false);
+      setIsFullContentVisible(true);
     }
   }, [selectedView, selectedCategory, selctedMealNameFromSearch]);
 
@@ -116,8 +116,8 @@ const Home = () => {
         ref={recipeDetailsSetion}
         className="Grid-main"
         style={{
-          height: isFullContentVisible ? "1925px" : "auto", // Set fixed height or auto depending on visibility
-          overflow: isFullContentVisible ? "hidden" : "auto", // Hide overflow content initially
+          height: isFullContentVisible ? "auto" : "1925px", // Set fixed height or auto depending on visibility
+          overflow: isFullContentVisible ? "auto" : "hidden", // Hide overflow content initially
         }}
       >
         <hr />
@@ -163,7 +163,7 @@ const Home = () => {
           selectedView === "categories") && (
           <div className="footer-button">
             <button onClick={toggleContentVisibility}>
-              {isFullContentVisible ? "Load More" : "Show Less"}
+              {isFullContentVisible ? "Show Less" : "Load More"}
             </button>
           </div>
         )}

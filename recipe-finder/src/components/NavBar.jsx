@@ -165,9 +165,8 @@ function Navbar(props) {
     window.addEventListener("resize", toggleOnScreenWidth);
     return () => window.removeEventListener("resize", toggleOnScreenWidth);
   }, []);
-
+  const screenWidth = window.innerWidth;
   const toggleOnScreenWidth = () => {
-    const screenWidth = window.innerWidth;
     if (screenWidth < 550) {
       setShowSearchInput(false);
       setHidebutton(true);
@@ -189,7 +188,8 @@ function Navbar(props) {
 
   return (
     <nav className="navbar">
-      <div>
+      <div className="hover-container">
+        <p className="hover-label">Home</p>
         <Link to={"/"}>
           {" "}
           <img className="logo" src={logo} alt="Logo" />
@@ -210,7 +210,8 @@ function Navbar(props) {
                 setDropDownOpen((prev) => !prev);
               }}
             >
-              <p>
+              <p className="hover-container">
+                <p className="hover-label">Expand Categories</p>
                 All categories{" "}
                 {dropDownOpen ? (
                   <FontAwesomeIcon
@@ -282,6 +283,9 @@ function Navbar(props) {
           className="searchButton"
         >
           <FontAwesomeIcon icon={faSearch} />
+          <p className="hover-label">
+            {screenWidth < 550 ? "Toggle Search" : "Search"}
+          </p>
         </button>
       </form>
 
@@ -292,6 +296,9 @@ function Navbar(props) {
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
+        <p className="hover-label">
+          Expand <br></br> menu
+        </p>
       </div>
 
       <div className={`navLinks ${menuOpen ? "show" : ""}`}>

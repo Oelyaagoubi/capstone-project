@@ -323,4 +323,16 @@ input:focus {
     padding-left: 10px;
     background-color: #f3f3f3;
   }
+  .hamburger:hover .hover-label {
+    visibility: hidden;
+    opacity: 1;
+  }
+  .hover-container:hover .hover-label {
+    visibility: hidden;
+    opacity: 1;
+  }
+  .searchButton:hover .hover-label {
+    visibility: hidden;
+    opacity: 1;
+  }
 }
